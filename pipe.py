@@ -402,7 +402,6 @@ class PipeMania(Problem):
                     self.board.matrix[i][0].nome = possible[0]
                     self.board.matrix[i][0].state = FINAL
                     stack.append(self.board.matrix[i][0])
-                    mcmxxmmc
                     self.check_adj_final(stack)
                 else:
                     self.board.matrix[i][0].nome = possible[0]
