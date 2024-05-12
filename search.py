@@ -100,6 +100,7 @@ class Node:
         """[Figure 3.10]"""
         next_state = problem.result(self.state, action)
         next_node = Node(next_state, self, action, problem.path_cost(self.path_cost, self.state, action, next_state))
+        print("the path cost:  ", problem.path_cost(self.path_cost, self.state, action, next_state))
         return next_node
 
     def solution(self):
@@ -207,6 +208,8 @@ def depth_first_tree_search(problem):
     frontier = [Node(problem.initial)]  # Stack
 
     while frontier:
+        for caca in frontier:
+            print(caca.nome)
         node = frontier.pop()
         if problem.goal_test(node.state):
             return node

@@ -259,6 +259,7 @@ class PipeMania(Problem):
             self.check_possibilities(coord[0], coord[1], state.board.matrix[coord[0]][coord[1]].nome)
             for possibility in state.board.matrix[coord[0]][coord[1]].possibilities:
                 all_actions.append([coord[0], coord[1], possibility])
+        print(all_actions)
         return all_actions
                
     def result(self, state: PipeManiaState, action):
@@ -270,9 +271,10 @@ class PipeMania(Problem):
         new_state.board.matrix[action[0]][action[1]].nome = action[-1]
         new_state.board.h -= (len(new_state.board.matrix[action[0]][action[1]].possibilities) - 1)
         new_state.board.matrix[action[0]][action[1]].possibilities = [action[-1]]
+        print("possibility: ",new_state.board.matrix[action[0]][action[1]].possibilities, "da piece: ", action[0], action[1])
         new_state.board.matrix[action[0]][action[1]].state = FINAL
         stack = [new_state.board.matrix[action[0]][action[1]]]
-        self.check_adj_final(stack)
+        #self.check_adj_final(stack)
         return new_state
         
 
@@ -282,15 +284,17 @@ class PipeMania(Problem):
         estão preenchidas de acordo com as regras do problema.
         !!! 0 = white       1 = gray      2 = black !!!!
         """
-        """for i in range(state.board.tamanho): #row
+        for i in range(state.board.tamanho): #row
            for j in range(state.board.tamanho): # col
                 horizontal = state.board.adjacent_horizontal_values(i, j)
                 vertical = state.board.adjacent_vertical_values(i, j)
                 if((not isvaliddddd(state.board.matrix[i][j], horizontal[1], D)) or (not isvaliddddd(state.board.matrix[i][j], horizontal[0], E)) or
                    (not isvaliddddd(state.board.matrix[i][j], vertical[1], B)) or (not isvaliddddd(state.board.matrix[i][j], vertical[0], C))):
+                    print("oi")
                     return False
-        return True"""
-        return self.board.h == self.board.tamanho**2
+        print("oiiiii")
+        return True
+        #return self.board.h == self.board.tamanho**2
                
                 
 
@@ -453,7 +457,10 @@ if __name__ == "__main__":
     initial_state = PipeManiaState(caca[0]) #the first state is after the most finals are done!, the cost starts at 0
     initial_state.final_pieces = caca[1]
     problem.initial = initial_state
-    astar_search(problem)
+    #node = depth_first_tree_search(problem)
+    #node = breadth_first_tree_search(problem)
+    node = astar_search(problem)
+    print(problem.goal_test(node.state))
     board.print_board()
     # Mostrar valor na posição (2, 2):
    
