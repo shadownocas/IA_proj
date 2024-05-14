@@ -255,11 +255,11 @@ class PipeMania(Problem):
         """Retorna uma lista de ações que podem ser executadas a
         partir do estado passado como argumento."""
         all_actions = []
-        for coord in state.board.p_left:
-            self.check_possibilities(coord[0], coord[1], state.board.matrix[coord[0]][coord[1]].nome)
-            for possibility in state.board.matrix[coord[0]][coord[1]].possibilities:
-                all_actions.append([coord[0], coord[1], possibility])
-        print(all_actions)
+        top_piece = state.board.p_left[0]
+        self.check_possibilities(top_piece[0], top_piece[1], state.board.matrix[top_piece[0]][top_piece[1]].nome)
+        for possibility in state.board.matrix[top_piece[0]][top_piece[1]].possibilities:
+            all_actions.append([top_piece[0], top_piece[1], possibility])
+        print("Actions", all_actions)
         return all_actions
                
     def result(self, state: PipeManiaState, action):
@@ -267,12 +267,21 @@ class PipeMania(Problem):
         'state' passado como argumento. A ação a executar deve ser uma
         das presentes na lista obtida pela execução de
         self.actions(state)."""
-        new_state = PipeManiaState(state.board)
+        print("Realizing", action)
+        new_matrix =[]
+        new_pieces = []
+        for i in state.board.matrix:
+            new_matrix += [i.copy()]
+        for i in state.board.p_left:
+            new_pieces += [i.copy()]
+        new_board = Board(new_matrix, state.board.tamanho, new_pieces)
+        new_state = PipeManiaState(new_board)
+        print(state.board.p_left)
         new_state.board.matrix[action[0]][action[1]].nome = action[-1]
         new_state.board.h -= (len(new_state.board.matrix[action[0]][action[1]].possibilities) - 1)
         new_state.board.matrix[action[0]][action[1]].possibilities = [action[-1]]
-        print("possibility: ",new_state.board.matrix[action[0]][action[1]].possibilities, "da piece: ", action[0], action[1])
         new_state.board.matrix[action[0]][action[1]].state = FINAL
+        new_state.board.p_left.remove([action[0], action[1]])
         stack = [new_state.board.matrix[action[0]][action[1]]]
         #self.check_adj_final(stack)
         return new_state
@@ -290,9 +299,7 @@ class PipeMania(Problem):
                 vertical = state.board.adjacent_vertical_values(i, j)
                 if((not isvaliddddd(state.board.matrix[i][j], horizontal[1], D)) or (not isvaliddddd(state.board.matrix[i][j], horizontal[0], E)) or
                    (not isvaliddddd(state.board.matrix[i][j], vertical[1], B)) or (not isvaliddddd(state.board.matrix[i][j], vertical[0], C))):
-                    print("oi")
                     return False
-        print("oiiiii")
         return True
         #return self.board.h == self.board.tamanho**2
                
@@ -461,7 +468,6 @@ if __name__ == "__main__":
     #node = breadth_first_tree_search(problem)
     node = astar_search(problem)
     print(problem.goal_test(node.state))
-    board.print_board()
     # Mostrar valor na posição (2, 2):
    
    
