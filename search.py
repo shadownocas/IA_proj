@@ -100,8 +100,6 @@ class Node:
         """[Figure 3.10]"""
         next_state = problem.result(self.state, action)
         next_node = Node(next_state, self, action, problem.path_cost(self.path_cost, self.state, action, next_state))
-        print("Dad", self)
-        print("Child", next_node)
         return next_node
 
     def solution(self):
@@ -192,6 +190,8 @@ def breadth_first_tree_search(problem):
 
     while frontier:
         node = frontier.popleft()
+        print("search print")
+        print(node.state.board.print_board())
         if problem.goal_test(node.state):
             return node
         frontier.extend(node.expand(problem))
@@ -275,16 +275,22 @@ def best_first_graph_search(problem, f, display=False):
     explored = set()
     while frontier:
         node = frontier.pop()
+        print("Search print")
+        node.state.board.print_board()
         if problem.goal_test(node.state):
+            print("It got here")
             if display:
                 print(len(explored), "paths have been expanded and", len(frontier), "paths remain in the frontier")
             return node
         explored.add(node.state)
+        print("This is the explored list", explored)
         for child in node.expand(problem):
-            print("This is the child", child)
             if child.state not in explored and child not in frontier:
+                print("These are added to the frontier")
+                child.state.board.print_board()
                 frontier.append(child)
             elif child in frontier:
+                print("This is the child", child.state)
                 if f(child) < frontier[child]:
                     del frontier[child]
                     frontier.append(child)

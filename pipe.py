@@ -2,9 +2,9 @@
 # Devem alterar as classes e funções neste ficheiro de acordo com as instruções do enunciado.
 # Além das funções e classes sugeridas, podem acrescentar outras que considerem pertinentes.
 
-# Grupo 00:
-# 00000 Nome1
-# 00000 Nome2
+# Grupo 22:
+# 106111 Inês Simões
+# 104683 Matheus Alves
 
 import sys
 import copy
@@ -21,8 +21,6 @@ from search import (
     
 )
 
-RIGHT = True
-LEFT = False
 WRONG = 0
 MAYBE = 1
 FINAL = 2
@@ -51,40 +49,6 @@ class Piece:
             case _:
                 self.positions = [nome[0] + "C", nome[0] + "B", nome[0] + "D", nome[0] + "E"]
                 self.dir = (type[nome[0]], directions[nome[1]])
-
-    
-    def turn_right(self):
-        match self.dir[0]:
-            case "L":
-                if self.dir[1] == 1:
-                    self.dir[1] = 0
-                else:
-                    self.dir = 1
-            case _:
-                if self.dir[1] == 4:
-                    self.dir[1] = 0
-                else:
-                    self.dir += 1
-    
-    def turn_left(self):
-        match self.dir[0]:
-            case "L":
-                if self.dir[1] == 1:
-                    self.dir[1] = 0
-                else:
-                    self.dir = 1
-            case _:
-                if self.dir[1] == 0:
-                    self.dir[1] = 4
-                else:
-                    self.dir -= 1
-    
-    def get_name(self):
-        type = {0: "F", 1: "B", 2: "V", 3: "L"}
-        directions = {0: "C", 1: "C", 2: "C", 3: "C"}
-        name = ""
-        name += type[self.dir[0]]
-        name += directions[self.dir[1]]
         
 
 
@@ -93,7 +57,6 @@ class PipeManiaState:
 
     def __init__(self, board):
         self.board = board
-        self.location = (0, 0)
         self.cost = PipeManiaState.state_id
         self.final_pieces = 0
         self.h = 0
@@ -106,8 +69,6 @@ class PipeManiaState:
         return self.cost
 
     def check_possibilities(self, x, y, piece: str):
-            #convinha verificar com nome.. ( piece is string)
-            #Check just if you need to remove the directions, retorna list/tuplo
             if not (self.board.matrix[x][y].possibilities == []):
                 return self.board.matrix[x][y].possibilities
             res = list(initial_positions[piece[0]])
@@ -401,14 +362,14 @@ class PipeMania(Problem):
         """Retorna uma lista de ações que podem ser executadas a
         partir do estado passado como argumento."""
         actions = []
-        for coord in state.board.p_left:
-            p_x = coord[0]
-            p_y = coord[1]
-            piece_name = state.board.matrix[p_x][p_y].nome
-            state.check_possibilities(p_x, p_y, piece_name)
-            for possibility in state.board.matrix[p_x][p_y].possibilities:
-                print("Possibility", possibility)
-                actions.append([p_x, p_y, possibility])
+        coord = state.board.p_left[0]
+        p_x = coord[0]
+        p_y = coord[1]
+        piece_name = state.board.matrix[p_x][p_y].nome
+        state.check_possibilities(p_x, p_y, piece_name)
+        for possibility in state.board.matrix[p_x][p_y].possibilities:
+            actions.append([p_x, p_y, possibility])
+        print("Possibilities", actions)
         return actions
                
     def result(self, state: PipeManiaState, action):
@@ -416,6 +377,7 @@ class PipeMania(Problem):
         'state' passado como argumento. A ação a executar deve ser uma
         das presentes na lista obtida pela execução de
         self.actions(state)."""
+        print("Applying this", action)
         p_x = action[0]
         p_y = action[1]
         p_name = action[2]
@@ -425,6 +387,7 @@ class PipeMania(Problem):
         piece.possibilities = [p_name]
         piece.state = FINAL
         new_state.board.p_left.remove([p_x, p_y])
+        new_state.board.print_board()
         return new_state
         
 
@@ -468,6 +431,15 @@ if __name__ == "__main__":
     board = Board.parse_instance()
     initial_state = PipeManiaState(board)
     initial_state.calcs()
+    initial_state.board.matrix[0][0].nome = "VC"
+    initial_state.board.matrix[0][0].possibilities = ["VC", "VB"]
+    initial_state.board.p_left = [[0, 0]]
+    initial_state.board.matrix[0][1].nome = "VC"
+    initial_state.board.matrix[0][1].possibilities = ["VC", "VE"]
+    initial_state.board.p_left.append([0, 1])
+    initial_state.board.matrix[1][0].nome = "FD"
+    initial_state.board.matrix[1][0].possibilities = ["FC", "FE"]
+    initial_state.board.p_left.append([1, 0])
     problem = PipeMania(initial_state.board)
     problem.initial = initial_state
     #node = depth_first_tree_search(problem)
