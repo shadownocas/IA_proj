@@ -1,0 +1,416 @@
+Possible actions [[4, 5, 'BC'], [4, 5, 'BE']]
+Dad <Node <__main__.PipeManiaState object at 0x78c967abb4c0>>
+Child <Node <__main__.PipeManiaState object at 0x78c967abb6d0>>
+Dad <Node <__main__.PipeManiaState object at 0x78c967abb4c0>>
+Child <Node <__main__.PipeManiaState object at 0x78c967abb7f0>>
+Possible actions [[4, 6, 'VC'], [4, 6, 'VD']]
+Dad <Node <__main__.PipeManiaState object at 0x78c967abb6d0>>
+Child <Node <__main__.PipeManiaState object at 0x78c967abb910>>
+Dad <Node <__main__.PipeManiaState object at 0x78c967abb6d0>>
+Child <Node <__main__.PipeManiaState object at 0x78c967abba30>>
+Possible actions []
+Possible actions [[4, 7, 'VC'], [4, 7, 'VD']]
+Dad <Node <__main__.PipeManiaState object at 0x78c967abb910>>
+Child <Node <__main__.PipeManiaState object at 0x78c967abb7c0>>
+Dad <Node <__main__.PipeManiaState object at 0x78c967abb910>>
+Child <Node <__main__.PipeManiaState object at 0x78c967abbb50>>
+Possible actions []
+Possible actions [[4, 8, 'BC'], [4, 8, 'BD'], [4, 8, 'BE']]
+Dad <Node <__main__.PipeManiaState object at 0x78c967abb7c0>>
+Child <Node <__main__.PipeManiaState object at 0x78c967abba00>>
+Dad <Node <__main__.PipeManiaState object at 0x78c967abb7c0>>
+Child <Node <__main__.PipeManiaState object at 0x78c967abbc70>>
+Dad <Node <__main__.PipeManiaState object at 0x78c967abb7c0>>
+Child <Node <__main__.PipeManiaState object at 0x78c967abbd90>>
+Possible actions []
+Possible actions [[4, 9, 'BC'], [4, 9, 'BD']]
+Dad <Node <__main__.PipeManiaState object at 0x78c967abba00>>
+Child <Node <__main__.PipeManiaState object at 0x78c967abbb20>>
+Dad <Node <__main__.PipeManiaState object at 0x78c967abba00>>
+Child <Node <__main__.PipeManiaState object at 0x78c967abbeb0>>
+Possible actions []
+Possible actions []
+Possible actions [[5, 3, 'FB'], [5, 3, 'FD']]
+Dad <Node <__main__.PipeManiaState object at 0x78c967abbb20>>
+Child <Node <__main__.PipeManiaState object at 0x78c967abbd60>>
+Dad <Node <__main__.PipeManiaState object at 0x78c967abbb20>>
+Child <Node <__main__.PipeManiaState object at 0x78c967abbc40>>
+Possible actions []
+Possible actions [[5, 4, 'VB'], [5, 4, 'VE']]
+Dad <Node <__main__.PipeManiaState object at 0x78c967abbd60>>
+Child <Node <__main__.PipeManiaState object at 0x78c967abbe80>>
+Dad <Node <__main__.PipeManiaState object at 0x78c967abbd60>>
+Child <Node <__main__.PipeManiaState object at 0x78c967abbfd0>>
+Possible actions []
+Possible actions [[5, 5, 'LH'], [5, 5, 'LV']]
+Dad <Node <__main__.PipeManiaState object at 0x78c967abbe80>>
+Child <Node <__main__.PipeManiaState object at 0x78c967abbc10>>
+Dad <Node <__main__.PipeManiaState object at 0x78c967abbe80>>
+Child <Node <__main__.PipeManiaState object at 0x78c967b14130>>
+Possible actions []
+Possible actions [[5, 6, 'VC'], [5, 6, 'VB'], [5, 6, 'VD'], [5, 6, 'VE']]
+Dad <Node <__main__.PipeManiaState object at 0x78c967abbc10>>
+Child <Node <__main__.PipeManiaState object at 0x78c967abbc40>>
+Dad <Node <__main__.PipeManiaState object at 0x78c967abbc10>>
+Child <Node <__main__.PipeManiaState object at 0x78c967b14250>>
+Dad <Node <__main__.PipeManiaState object at 0x78c967abbc10>>
+Child <Node <__main__.PipeManiaState object at 0x78c967b14370>>
+Dad <Node <__main__.PipeManiaState object at 0x78c967abbc10>>
+Child <Node <__main__.PipeManiaState object at 0x78c967b14490>>
+Possible actions []
+Possible actions [[5, 7, 'FC'], [5, 7, 'FB'], [5, 7, 'FD'], [5, 7, 'FE']]
+Dad <Node <__main__.PipeManiaState object at 0x78c967abbc40>>
+Child <Node <__main__.PipeManiaState object at 0x78c967b14130>>
+Dad <Node <__main__.PipeManiaState object at 0x78c967abbc40>>
+Child <Node <__main__.PipeManiaState object at 0x78c967b145b0>>
+Dad <Node <__main__.PipeManiaState object at 0x78c967abbc40>>
+Child <Node <__main__.PipeManiaState object at 0x78c967b146d0>>
+Dad <Node <__main__.PipeManiaState object at 0x78c967abbc40>>
+Child <Node <__main__.PipeManiaState object at 0x78c967b147f0>>
+Possible actions []
+Possible actions []
+Possible actions []
+Possible actions [[5, 8, 'BC'], [5, 8, 'BB'], [5, 8, 'BD'], [5, 8, 'BE']]
+Dad <Node <__main__.PipeManiaState object at 0x78c967b14130>>
+Child <Node <__main__.PipeManiaState object at 0x78c967b14490>>
+Dad <Node <__main__.PipeManiaState object at 0x78c967b14130>>
+Child <Node <__main__.PipeManiaState object at 0x78c967b14370>>
+Dad <Node <__main__.PipeManiaState object at 0x78c967b14130>>
+Child <Node <__main__.PipeManiaState object at 0x78c967b14250>>
+Dad <Node <__main__.PipeManiaState object at 0x78c967b14130>>
+Child <Node <__main__.PipeManiaState object at 0x78c967b14910>>
+Possible actions []
+Possible actions []
+Possible actions []
+Possible actions [[5, 9, 'BC'], [5, 9, 'BB'], [5, 9, 'BD']]
+Dad <Node <__main__.PipeManiaState object at 0x78c967b14490>>
+Child <Node <__main__.PipeManiaState object at 0x78c967b147f0>>
+Dad <Node <__main__.PipeManiaState object at 0x78c967b14490>>
+Child <Node <__main__.PipeManiaState object at 0x78c967b146d0>>
+Dad <Node <__main__.PipeManiaState object at 0x78c967b14490>>
+Child <Node <__main__.PipeManiaState object at 0x78c967b145b0>>
+Possible actions []
+Possible actions []
+Possible actions []
+Possible actions [[6, 3, 'BB'], [6, 3, 'BE']]
+Dad <Node <__main__.PipeManiaState object at 0x78c967b147f0>>
+Child <Node <__main__.PipeManiaState object at 0x78c967b14910>>
+Dad <Node <__main__.PipeManiaState object at 0x78c967b147f0>>
+Child <Node <__main__.PipeManiaState object at 0x78c967b14250>>
+Possible actions []
+Possible actions []
+Possible actions [[6, 4, 'LH'], [6, 4, 'LV']]
+Dad <Node <__main__.PipeManiaState object at 0x78c967b14910>>
+Child <Node <__main__.PipeManiaState object at 0x78c967b145b0>>
+Dad <Node <__main__.PipeManiaState object at 0x78c967b14910>>
+Child <Node <__main__.PipeManiaState object at 0x78c967b146d0>>
+Possible actions []
+Possible actions [[6, 5, 'FC'], [6, 5, 'FB'], [6, 5, 'FD'], [6, 5, 'FE']]
+Dad <Node <__main__.PipeManiaState object at 0x78c967b145b0>>
+Child <Node <__main__.PipeManiaState object at 0x78c967b14250>>
+Dad <Node <__main__.PipeManiaState object at 0x78c967b145b0>>
+Child <Node <__main__.PipeManiaState object at 0x78c967b14370>>
+Dad <Node <__main__.PipeManiaState object at 0x78c967b145b0>>
+Child <Node <__main__.PipeManiaState object at 0x78c967b14a30>>
+Dad <Node <__main__.PipeManiaState object at 0x78c967b145b0>>
+Child <Node <__main__.PipeManiaState object at 0x78c967b14b50>>
+Possible actions []
+Possible actions [[6, 6, 'FC'], [6, 6, 'FB'], [6, 6, 'FD'], [6, 6, 'FE']]
+Dad <Node <__main__.PipeManiaState object at 0x78c967b14250>>
+Child <Node <__main__.PipeManiaState object at 0x78c967b146d0>>
+Dad <Node <__main__.PipeManiaState object at 0x78c967b14250>>
+Child <Node <__main__.PipeManiaState object at 0x78c967b14c70>>
+Dad <Node <__main__.PipeManiaState object at 0x78c967b14250>>
+Child <Node <__main__.PipeManiaState object at 0x78c967b14d90>>
+Dad <Node <__main__.PipeManiaState object at 0x78c967b14250>>
+Child <Node <__main__.PipeManiaState object at 0x78c967b14eb0>>
+Possible actions []
+Possible actions []
+Possible actions []
+Possible actions [[6, 7, 'FC'], [6, 7, 'FB'], [6, 7, 'FD'], [6, 7, 'FE']]
+Dad <Node <__main__.PipeManiaState object at 0x78c967b146d0>>
+Child <Node <__main__.PipeManiaState object at 0x78c967b14b50>>
+Dad <Node <__main__.PipeManiaState object at 0x78c967b146d0>>
+Child <Node <__main__.PipeManiaState object at 0x78c967b14a30>>
+Dad <Node <__main__.PipeManiaState object at 0x78c967b146d0>>
+Child <Node <__main__.PipeManiaState object at 0x78c967b14370>>
+Dad <Node <__main__.PipeManiaState object at 0x78c967b146d0>>
+Child <Node <__main__.PipeManiaState object at 0x78c967b14fd0>>
+Possible actions []
+Possible actions []
+Possible actions []
+Possible actions [[6, 8, 'LH'], [6, 8, 'LV']]
+Dad <Node <__main__.PipeManiaState object at 0x78c967b14b50>>
+Child <Node <__main__.PipeManiaState object at 0x78c967b14eb0>>
+Dad <Node <__main__.PipeManiaState object at 0x78c967b14b50>>
+Child <Node <__main__.PipeManiaState object at 0x78c967b14d90>>
+Possible actions []
+Possible actions []
+Possible actions []
+Possible actions [[6, 9, 'BC'], [6, 9, 'BB'], [6, 9, 'BD']]
+Dad <Node <__main__.PipeManiaState object at 0x78c967b14eb0>>
+Child <Node <__main__.PipeManiaState object at 0x78c967b14fd0>>
+Dad <Node <__main__.PipeManiaState object at 0x78c967b14eb0>>
+Child <Node <__main__.PipeManiaState object at 0x78c967b14370>>
+Dad <Node <__main__.PipeManiaState object at 0x78c967b14eb0>>
+Child <Node <__main__.PipeManiaState object at 0x78c967b14a30>>
+Possible actions []
+Possible actions [[7, 4, 'BC'], [7, 4, 'BB'], [7, 4, 'BE']]
+Dad <Node <__main__.PipeManiaState object at 0x78c967b14fd0>>
+Child <Node <__main__.PipeManiaState object at 0x78c967b14d90>>
+Dad <Node <__main__.PipeManiaState object at 0x78c967b14fd0>>
+Child <Node <__main__.PipeManiaState object at 0x78c967b14c70>>
+Dad <Node <__main__.PipeManiaState object at 0x78c967b14fd0>>
+Child <Node <__main__.PipeManiaState object at 0x78c967b150f0>>
+Possible actions []
+Possible actions []
+Possible actions [[7, 5, 'LH'], [7, 5, 'LV']]
+Dad <Node <__main__.PipeManiaState object at 0x78c967b14d90>>
+Child <Node <__main__.PipeManiaState object at 0x78c967b14a30>>
+Dad <Node <__main__.PipeManiaState object at 0x78c967b14d90>>
+Child <Node <__main__.PipeManiaState object at 0x78c967b14370>>
+Possible actions []
+Possible actions []
+Possible actions [[7, 6, 'VC'], [7, 6, 'VB'], [7, 6, 'VD'], [7, 6, 'VE']]
+Dad <Node <__main__.PipeManiaState object at 0x78c967b14a30>>
+Child <Node <__main__.PipeManiaState object at 0x78c967b150f0>>
+Dad <Node <__main__.PipeManiaState object at 0x78c967b14a30>>
+Child <Node <__main__.PipeManiaState object at 0x78c967b14c70>>
+Dad <Node <__main__.PipeManiaState object at 0x78c967b14a30>>
+Child <Node <__main__.PipeManiaState object at 0x78c967b15210>>
+Dad <Node <__main__.PipeManiaState object at 0x78c967b14a30>>
+Child <Node <__main__.PipeManiaState object at 0x78c967b15330>>
+Possible actions []
+Possible actions [[7, 7, 'VC'], [7, 7, 'VB'], [7, 7, 'VD'], [7, 7, 'VE']]
+Dad <Node <__main__.PipeManiaState object at 0x78c967b150f0>>
+Child <Node <__main__.PipeManiaState object at 0x78c967b14370>>
+Dad <Node <__main__.PipeManiaState object at 0x78c967b150f0>>
+Child <Node <__main__.PipeManiaState object at 0x78c967b15450>>
+Dad <Node <__main__.PipeManiaState object at 0x78c967b150f0>>
+Child <Node <__main__.PipeManiaState object at 0x78c967b15570>>
+Dad <Node <__main__.PipeManiaState object at 0x78c967b150f0>>
+Child <Node <__main__.PipeManiaState object at 0x78c967b15690>>
+Possible actions []
+Possible actions []
+Possible actions []
+Possible actions [[7, 8, 'LH'], [7, 8, 'LV']]
+Dad <Node <__main__.PipeManiaState object at 0x78c967b14370>>
+Child <Node <__main__.PipeManiaState object at 0x78c967b15330>>
+Dad <Node <__main__.PipeManiaState object at 0x78c967b14370>>
+Child <Node <__main__.PipeManiaState object at 0x78c967b15210>>
+Possible actions []
+Possible actions []
+Possible actions []
+Possible actions [[7, 9, 'BC'], [7, 9, 'BB'], [7, 9, 'BD']]
+Dad <Node <__main__.PipeManiaState object at 0x78c967b15330>>
+Child <Node <__main__.PipeManiaState object at 0x78c967b15690>>
+Dad <Node <__main__.PipeManiaState object at 0x78c967b15330>>
+Child <Node <__main__.PipeManiaState object at 0x78c967b15570>>
+Dad <Node <__main__.PipeManiaState object at 0x78c967b15330>>
+Child <Node <__main__.PipeManiaState object at 0x78c967b15450>>
+Possible actions []
+Possible actions [[8, 4, 'BC'], [8, 4, 'BB'], [8, 4, 'BE']]
+Dad <Node <__main__.PipeManiaState object at 0x78c967b15690>>
+Child <Node <__main__.PipeManiaState object at 0x78c967b15210>>
+Dad <Node <__main__.PipeManiaState object at 0x78c967b15690>>
+Child <Node <__main__.PipeManiaState object at 0x78c967b14c70>>
+Dad <Node <__main__.PipeManiaState object at 0x78c967b15690>>
+Child <Node <__main__.PipeManiaState object at 0x78c967b157b0>>
+Possible actions []
+Possible actions []
+Possible actions [[8, 5, 'BC'], [8, 5, 'BB'], [8, 5, 'BD'], [8, 5, 'BE']]
+Dad <Node <__main__.PipeManiaState object at 0x78c967b15210>>
+Child <Node <__main__.PipeManiaState object at 0x78c967b15450>>
+Dad <Node <__main__.PipeManiaState object at 0x78c967b15210>>
+Child <Node <__main__.PipeManiaState object at 0x78c967b15570>>
+Dad <Node <__main__.PipeManiaState object at 0x78c967b15210>>
+Child <Node <__main__.PipeManiaState object at 0x78c967b158d0>>
+Dad <Node <__main__.PipeManiaState object at 0x78c967b15210>>
+Child <Node <__main__.PipeManiaState object at 0x78c967b159f0>>
+Possible actions []
+Possible actions []
+Possible actions [[8, 6, 'VC'], [8, 6, 'VB'], [8, 6, 'VD'], [8, 6, 'VE']]
+Dad <Node <__main__.PipeManiaState object at 0x78c967b15450>>
+Child <Node <__main__.PipeManiaState object at 0x78c967b157b0>>
+Dad <Node <__main__.PipeManiaState object at 0x78c967b15450>>
+Child <Node <__main__.PipeManiaState object at 0x78c967b14c70>>
+Dad <Node <__main__.PipeManiaState object at 0x78c967b15450>>
+Child <Node <__main__.PipeManiaState object at 0x78c967b15b10>>
+Dad <Node <__main__.PipeManiaState object at 0x78c967b15450>>
+Child <Node <__main__.PipeManiaState object at 0x78c967b15c30>>
+Possible actions []
+Possible actions []
+Possible actions []
+Possible actions [[8, 7, 'FC'], [8, 7, 'FB'], [8, 7, 'FD'], [8, 7, 'FE']]
+Dad <Node <__main__.PipeManiaState object at 0x78c967b157b0>>
+Child <Node <__main__.PipeManiaState object at 0x78c967b159f0>>
+Dad <Node <__main__.PipeManiaState object at 0x78c967b157b0>>
+Child <Node <__main__.PipeManiaState object at 0x78c967b158d0>>
+Dad <Node <__main__.PipeManiaState object at 0x78c967b157b0>>
+Child <Node <__main__.PipeManiaState object at 0x78c967b15570>>
+Dad <Node <__main__.PipeManiaState object at 0x78c967b157b0>>
+Child <Node <__main__.PipeManiaState object at 0x78c967b15d50>>
+Possible actions []
+Possible actions []
+Possible actions []
+Possible actions [[8, 8, 'LH'], [8, 8, 'LV']]
+Dad <Node <__main__.PipeManiaState object at 0x78c967b159f0>>
+Child <Node <__main__.PipeManiaState object at 0x78c967b15c30>>
+Dad <Node <__main__.PipeManiaState object at 0x78c967b159f0>>
+Child <Node <__main__.PipeManiaState object at 0x78c967b15b10>>
+Possible actions []
+Possible actions []
+Possible actions []
+Possible actions [[8, 9, 'BC'], [8, 9, 'BB'], [8, 9, 'BD']]
+Dad <Node <__main__.PipeManiaState object at 0x78c967b15c30>>
+Child <Node <__main__.PipeManiaState object at 0x78c967b15d50>>
+Dad <Node <__main__.PipeManiaState object at 0x78c967b15c30>>
+Child <Node <__main__.PipeManiaState object at 0x78c967b15570>>
+Dad <Node <__main__.PipeManiaState object at 0x78c967b15c30>>
+Child <Node <__main__.PipeManiaState object at 0x78c967b158d0>>
+Possible actions []
+Possible actions [[9, 4, 'BC'], [9, 4, 'BB'], [9, 4, 'BE']]
+Dad <Node <__main__.PipeManiaState object at 0x78c967b15d50>>
+Child <Node <__main__.PipeManiaState object at 0x78c967b15b10>>
+Dad <Node <__main__.PipeManiaState object at 0x78c967b15d50>>
+Child <Node <__main__.PipeManiaState object at 0x78c967b14c70>>
+Dad <Node <__main__.PipeManiaState object at 0x78c967b15d50>>
+Child <Node <__main__.PipeManiaState object at 0x78c967b15e70>>
+Possible actions []
+Possible actions []
+Possible actions [[9, 5, 'VC'], [9, 5, 'VB'], [9, 5, 'VD'], [9, 5, 'VE']]
+Dad <Node <__main__.PipeManiaState object at 0x78c967b15b10>>
+Child <Node <__main__.PipeManiaState object at 0x78c967b158d0>>
+Dad <Node <__main__.PipeManiaState object at 0x78c967b15b10>>
+Child <Node <__main__.PipeManiaState object at 0x78c967b15570>>
+Dad <Node <__main__.PipeManiaState object at 0x78c967b15b10>>
+Child <Node <__main__.PipeManiaState object at 0x78c967b15f90>>
+Dad <Node <__main__.PipeManiaState object at 0x78c967b15b10>>
+Child <Node <__main__.PipeManiaState object at 0x78c967b160b0>>
+Possible actions []
+Possible actions []
+Possible actions [[9, 6, 'FC'], [9, 6, 'FB'], [9, 6, 'FD'], [9, 6, 'FE']]
+Dad <Node <__main__.PipeManiaState object at 0x78c967b158d0>>
+Child <Node <__main__.PipeManiaState object at 0x78c967b15e70>>
+Dad <Node <__main__.PipeManiaState object at 0x78c967b158d0>>
+Child <Node <__main__.PipeManiaState object at 0x78c967b14c70>>
+Dad <Node <__main__.PipeManiaState object at 0x78c967b158d0>>
+Child <Node <__main__.PipeManiaState object at 0x78c967b161d0>>
+Dad <Node <__main__.PipeManiaState object at 0x78c967b158d0>>
+Child <Node <__main__.PipeManiaState object at 0x78c967b162f0>>
+Possible actions []
+Possible actions []
+Possible actions []
+Possible actions [[9, 7, 'LH'], [9, 7, 'LV']]
+Dad <Node <__main__.PipeManiaState object at 0x78c967b15e70>>
+Child <Node <__main__.PipeManiaState object at 0x78c967b160b0>>
+Dad <Node <__main__.PipeManiaState object at 0x78c967b15e70>>
+Child <Node <__main__.PipeManiaState object at 0x78c967b15f90>>
+Possible actions []
+Possible actions []
+Possible actions []
+Possible actions [[9, 8, 'LH'], [9, 8, 'LV']]
+Dad <Node <__main__.PipeManiaState object at 0x78c967b160b0>>
+Child <Node <__main__.PipeManiaState object at 0x78c967b162f0>>
+Dad <Node <__main__.PipeManiaState object at 0x78c967b160b0>>
+Child <Node <__main__.PipeManiaState object at 0x78c967b161d0>>
+Possible actions []
+Possible actions [[9, 9, 'FC'], [9, 9, 'FB'], [9, 9, 'FE']]
+Dad <Node <__main__.PipeManiaState object at 0x78c967b162f0>>
+Child <Node <__main__.PipeManiaState object at 0x78c967b15f90>>
+Dad <Node <__main__.PipeManiaState object at 0x78c967b162f0>>
+Child <Node <__main__.PipeManiaState object at 0x78c967b14c70>>
+Dad <Node <__main__.PipeManiaState object at 0x78c967b162f0>>
+Child <Node <__main__.PipeManiaState object at 0x78c967b15570>>
+Possible actions []
+Possible actions [[10, 4, 'BB'], [10, 4, 'BE']]
+Dad <Node <__main__.PipeManiaState object at 0x78c967b15f90>>
+Child <Node <__main__.PipeManiaState object at 0x78c967b161d0>>
+Dad <Node <__main__.PipeManiaState object at 0x78c967b15f90>>
+Child <Node <__main__.PipeManiaState object at 0x78c967b16410>>
+Possible actions []
+Possible actions []
+Possible actions [[10, 5, 'LH'], [10, 5, 'LV']]
+Dad <Node <__main__.PipeManiaState object at 0x78c967b161d0>>
+Child <Node <__main__.PipeManiaState object at 0x78c967b15570>>
+Dad <Node <__main__.PipeManiaState object at 0x78c967b161d0>>
+Child <Node <__main__.PipeManiaState object at 0x78c967b14c70>>
+Possible actions []
+Possible actions [[10, 6, 'BC'], [10, 6, 'BB'], [10, 6, 'BD'], [10, 6, 'BE']]
+Dad <Node <__main__.PipeManiaState object at 0x78c967b15570>>
+Child <Node <__main__.PipeManiaState object at 0x78c967b16410>>
+Dad <Node <__main__.PipeManiaState object at 0x78c967b15570>>
+Child <Node <__main__.PipeManiaState object at 0x78c967b16530>>
+Dad <Node <__main__.PipeManiaState object at 0x78c967b15570>>
+Child <Node <__main__.PipeManiaState object at 0x78c967b16650>>
+Dad <Node <__main__.PipeManiaState object at 0x78c967b15570>>
+Child <Node <__main__.PipeManiaState object at 0x78c967b16770>>
+Possible actions []
+Possible actions [[10, 7, 'BC'], [10, 7, 'BB'], [10, 7, 'BD'], [10, 7, 'BE']]
+Dad <Node <__main__.PipeManiaState object at 0x78c967b16410>>
+Child <Node <__main__.PipeManiaState object at 0x78c967b14c70>>
+Dad <Node <__main__.PipeManiaState object at 0x78c967b16410>>
+Child <Node <__main__.PipeManiaState object at 0x78c967b16890>>
+Dad <Node <__main__.PipeManiaState object at 0x78c967b16410>>
+Child <Node <__main__.PipeManiaState object at 0x78c967b169b0>>
+Dad <Node <__main__.PipeManiaState object at 0x78c967b16410>>
+Child <Node <__main__.PipeManiaState object at 0x78c967b16ad0>>
+Possible actions []
+Possible actions []
+Possible actions []
+Possible actions [[10, 8, 'BC'], [10, 8, 'BB'], [10, 8, 'BD'], [10, 8, 'BE']]
+Dad <Node <__main__.PipeManiaState object at 0x78c967b14c70>>
+Child <Node <__main__.PipeManiaState object at 0x78c967b16770>>
+Dad <Node <__main__.PipeManiaState object at 0x78c967b14c70>>
+Child <Node <__main__.PipeManiaState object at 0x78c967b16650>>
+Dad <Node <__main__.PipeManiaState object at 0x78c967b14c70>>
+Child <Node <__main__.PipeManiaState object at 0x78c967b16530>>
+Dad <Node <__main__.PipeManiaState object at 0x78c967b14c70>>
+Child <Node <__main__.PipeManiaState object at 0x78c967b16bf0>>
+Possible actions []
+Possible actions []
+Possible actions []
+Possible actions [[10, 9, 'VC'], [10, 9, 'VE']]
+Dad <Node <__main__.PipeManiaState object at 0x78c967b16770>>
+Child <Node <__main__.PipeManiaState object at 0x78c967b16ad0>>
+Dad <Node <__main__.PipeManiaState object at 0x78c967b16770>>
+Child <Node <__main__.PipeManiaState object at 0x78c967b169b0>>
+Possible actions []
+Possible actions []
+Possible actions []
+Possible actions [[11, 5, 'BB'], [11, 5, 'BE']]
+Dad <Node <__main__.PipeManiaState object at 0x78c967b16ad0>>
+Child <Node <__main__.PipeManiaState object at 0x78c967b16bf0>>
+Dad <Node <__main__.PipeManiaState object at 0x78c967b16ad0>>
+Child <Node <__main__.PipeManiaState object at 0x78c967b16530>>
+Possible actions []
+Possible actions [[11, 6, 'BB'], [11, 6, 'BD'], [11, 6, 'BE']]
+Dad <Node <__main__.PipeManiaState object at 0x78c967b16bf0>>
+Child <Node <__main__.PipeManiaState object at 0x78c967b169b0>>
+Dad <Node <__main__.PipeManiaState object at 0x78c967b16bf0>>
+Child <Node <__main__.PipeManiaState object at 0x78c967b16650>>
+Dad <Node <__main__.PipeManiaState object at 0x78c967b16bf0>>
+Child <Node <__main__.PipeManiaState object at 0x78c967b16890>>
+Possible actions []
+Possible actions [[11, 7, 'BB'], [11, 7, 'BD'], [11, 7, 'BE']]
+Dad <Node <__main__.PipeManiaState object at 0x78c967b169b0>>
+Child <Node <__main__.PipeManiaState object at 0x78c967b16530>>
+Dad <Node <__main__.PipeManiaState object at 0x78c967b169b0>>
+Child <Node <__main__.PipeManiaState object at 0x78c967b16d10>>
+Dad <Node <__main__.PipeManiaState object at 0x78c967b169b0>>
+Child <Node <__main__.PipeManiaState object at 0x78c967b16e30>>
+Possible actions []
+Possible actions []
+Possible actions [[11, 8, 'VB'], [11, 8, 'VE']]
+Dad <Node <__main__.PipeManiaState object at 0x78c967b16530>>
+Child <Node <__main__.PipeManiaState object at 0x78c967b16890>>
+Dad <Node <__main__.PipeManiaState object at 0x78c967b16530>>
+Child <Node <__main__.PipeManiaState object at 0x78c967b16650>>
+Possible actions []
+Possible actions []
+Possible actions [[11, 9, 'FC'], [11, 9, 'FE']]
+Dad <Node <__main__.PipeManiaState object at 0x78c967b16890>>
+Child <Node <__main__.PipeManiaState object at 0x78c967b16e30>>
+Dad <Node <__main__.PipeManiaState object at 0x78c967b16890>>
+Child <Node <__main__.PipeManiaState object at 0x78c967b16d10>>
+Possible actions []

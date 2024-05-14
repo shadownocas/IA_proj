@@ -1,23 +1,13 @@
-def check_possibilities(self, x, y, piece):
-        #convinha verificar com nome.. ( piece is string)
-        #Check just if you need to remove the directions, retorna list/tuplo
-        res = initial_positions[piece[0]]
-        last = self.board.tamanho - 1
-        if x == 0:
-            for pos in res:
-                if not (dict_pos[pos][0] == ""):
-                    res.remove(pos)
-        elif x == last:
-            for pos in res:
-                if not (dict_pos[pos][1] == ""):
-                    res.remove(pos) 
-        if y == last:
-            for pos in res:
-                if not (dict_pos[pos][2] == ""):
-                    res.remove(pos)
-        elif y == 0:
-            for pos in res:
-                if not (dict_pos[pos][3] == ""):
-                    res.remove(pos)
-        print("Whats left :", res)
-        return res
+def actions(self, state: PipeManiaState):
+        """Retorna uma lista de ações que podem ser executadas a
+        partir do estado passado como argumento."""
+        actions = []
+        for coord in state.board.p_left:
+            p_x = coord[0]
+            p_y = coord[1]
+            piece_name = state.board.matrix[p_x][p_y].nome
+            state.check_possibilities(p_x, p_y, piece_name)
+            for possibility in state.board.matrix[p_x][p_y].possibilities:
+                actions.append([p_x, p_y, possibility])
+        print("These are the possible actions", actions)
+        return actions

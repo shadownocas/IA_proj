@@ -104,7 +104,142 @@ class PipeManiaState:
     
     def path_cost(self):
         return self.cost
-6
+
+    def check_possibilities(self, x, y, piece: str):
+            #convinha verificar com nome.. ( piece is string)
+            #Check just if you need to remove the directions, retorna list/tuplo
+            if not (self.board.matrix[x][y].possibilities == []):
+                return self.board.matrix[x][y].possibilities
+            res = list(initial_positions[piece[0]])
+            res1 = list(initial_positions[piece[0]])
+            last = self.board.tamanho - 1
+            if x == 0:
+                for pos in res:
+                    if not (dict_pos[pos][0] == ""):
+                            res1.remove(pos)
+            elif x == last:
+                for pos in res:
+                    if not (dict_pos[pos][1] == ""):
+                        if(pos in res1):
+                            res1.remove(pos)
+            if y == last:
+                for pos in res:
+                    if not (dict_pos[pos][2] == ""):
+                        if(pos in res1):
+                            res1.remove(pos)
+            elif y == 0:
+                for pos in res:
+                    if not (dict_pos[pos][3] == ""):
+                        if(pos in res1):
+                            res1.remove(pos)
+                            
+            
+            self.board.matrix[x][y].possibilities = res1
+            self.board.h -= (4 - len(res1))
+            return res1
+
+
+                        
+    def check_adj_final(self, stack: list):
+        """" !!! 0 = white       1 = gray      2 = black !!!! """
+        finals = 0
+        side = [C, B, E, D]
+        omlll = [[-1, 0], [1, 0], [0, -1], [0, 1]]
+        while(len(stack) != 0):
+            cur = stack[-1]
+            if(cur.cor == 0):
+                i = 0
+                cur.cor = 1
+                horizontal = self.board.adjacent_horizontal_values(cur.coord[0], cur.coord[1])
+                pieces = self.board.adjacent_vertical_values(cur.coord[0] , cur.coord[1])
+                pieces.append(horizontal[0]) #can prob put at same time/nah you end up with nested lists:(, will try it later
+                pieces.append(horizontal[1])
+                for side_pieces in pieces :
+                    if(side_pieces != ""):  
+                        caca = self.board.matrix[cur.coord[0] + omlll[i][0]][cur.coord[1]+omlll[i][1]] #coords of side piece
+                        if( caca.state != FINAL):
+                            possibli = list(self.check_possibilities(caca.coord[0], caca.coord[1], side_pieces))
+                            for possibilities in possibli: #aqui n é do cur
+                                if(not isvalid(cur, possibilities,  side[i])):
+                                    self.board.h -= 1
+                                    caca.possibilities.remove(possibilities)
+                            
+                        if(len(self.board.matrix[caca.coord[0]][caca.coord[1]].possibilities) == 1 and caca.state != FINAL):
+                            caca.state = FINAL
+                            self.board.p_left.remove([caca.coord[0], caca.coord[1]])
+                            stack.append(caca)
+                            caca.nome = self.board.matrix[caca.coord[0]][caca.coord[1]].possibilities[0]   
+                    i += 1
+                    
+            elif(cur.cor == 1):
+                    finals += 1
+                    cur.cor = 2
+                    stack.pop()
+            else:
+                finals += 1
+                stack.pop()
+
+        return finals
+        
+    def calcs(self):
+        #checkar final states e set them on the boarders, clockwise
+        finals = 0
+        stack = []
+        for i in range(self.board.tamanho): 
+            if self.board.matrix[0][i].state != FINAL:
+                possible = self.check_possibilities(0, i, self.board.matrix[0][i].nome )
+                if(len(possible) == 1):
+                    self.board.matrix[0][i].nome = possible[0]
+                    self.board.matrix[0][i].state = FINAL
+                    self.board.p_left.remove([0, i])
+                    stack.append(self.board.matrix[0][i])
+                    finals += self.check_adj_final(stack)
+                else:
+                    self.board.matrix[0][i].nome = possible[0]
+                    self.board.matrix[0][i].state = MAYBE
+
+        for i in range(1, self.board.tamanho): # dont check first ine of collum, already checked
+            if(self.board.matrix[i][- 1].state != FINAL):
+                possible = self.check_possibilities(i, self.board.tamanho-1 , self.board.matrix[i][-1].nome )
+                if(len(possible) == 1):
+                    self.board.matrix[i][-1].nome = possible[0]
+                    self.board.matrix[i][-1].state = FINAL
+                    self.board.p_left.remove([i, self.board.tamanho - 1])
+                    stack.append(self.board.matrix[i][-1])
+                    finals += self.check_adj_final(stack)
+                else:
+                    self.board.matrix[i][-1].nome = possible[0]
+                    self.board.matrix[i][-1].state = MAYBE
+            
+        for i in range(self.board.tamanho - 1, -1, -1):
+            size = self.board.tamanho - 1
+            if(self.board.matrix[size][i].state != FINAL):
+                possible = self.check_possibilities( size, i, self.board.matrix[size][i].nome )
+                if(len(possible) == 1):
+                    self.board.matrix[size][i].nome = possible[0]
+                    self.board.matrix[size][i].state = FINAL
+                    self.board.p_left.remove([size, i])
+                    stack.append(self.board.matrix[size ][i])
+                    finals += self.check_adj_final(stack)
+                else:
+                    self.board.matrix[size][i].nome = possible[0]
+                    self.board.matrix[size][i].state = MAYBE
+
+        for i in range(self.board.tamanho - 1, -1, -1):
+            size = self.board.tamanho - 1 
+            if(self.board.matrix[i][0].state != FINAL):
+                possible = self.check_possibilities(i, 0, self.board.matrix[size ][i].nome )
+                if(len(possible) == 1):
+                    self.board.matrix[i][0].nome = possible[0]
+                    self.board.matrix[i][0].state = FINAL
+                    self.board.p_left.remove([i, 0])
+                    stack.append(self.board.matrix[i][0])
+                    finals += self.check_adj_final(stack)
+                else:
+                    self.board.matrix[i][0].nome = possible[0]
+                    self.board.matrix[i][0].state = MAYBE
+
+        return (self.board, finals)
 
 class Board:
     """Representação interna de um tabuleiro de PipeMania."""
@@ -250,40 +385,46 @@ class PipeMania(Problem):
     
     def get_piece(self, l, c):
         return self.board.matrix[l][c]
+    
+    def copy_state(self, matrix, p_left, tamanho):
+        new_matrix = []
+        for i in matrix:
+            new_matrix += [i.copy()]
+        new_p_left = []
+        for i in p_left:
+            new_p_left += [i.copy()]
+        new_board = Board(new_matrix, tamanho, new_p_left)
+        new_state = PipeManiaState(new_board)
+        return new_state
 
     def actions(self, state: PipeManiaState):
         """Retorna uma lista de ações que podem ser executadas a
         partir do estado passado como argumento."""
-        all_actions = []
-        top_piece = state.board.p_left[0]
-        self.check_possibilities(top_piece[0], top_piece[1], state.board.matrix[top_piece[0]][top_piece[1]].nome)
-        for possibility in state.board.matrix[top_piece[0]][top_piece[1]].possibilities:
-            all_actions.append([top_piece[0], top_piece[1], possibility])
-        print("Actions", all_actions)
-        return all_actions
+        actions = []
+        for coord in state.board.p_left:
+            p_x = coord[0]
+            p_y = coord[1]
+            piece_name = state.board.matrix[p_x][p_y].nome
+            state.check_possibilities(p_x, p_y, piece_name)
+            for possibility in state.board.matrix[p_x][p_y].possibilities:
+                print("Possibility", possibility)
+                actions.append([p_x, p_y, possibility])
+        return actions
                
     def result(self, state: PipeManiaState, action):
         """Retorna o estado resultante de executar a 'action' sobre
         'state' passado como argumento. A ação a executar deve ser uma
         das presentes na lista obtida pela execução de
         self.actions(state)."""
-        print("Realizing", action)
-        new_matrix =[]
-        new_pieces = []
-        for i in state.board.matrix:
-            new_matrix += [i.copy()]
-        for i in state.board.p_left:
-            new_pieces += [i.copy()]
-        new_board = Board(new_matrix, state.board.tamanho, new_pieces)
-        new_state = PipeManiaState(new_board)
-        print(state.board.p_left)
-        new_state.board.matrix[action[0]][action[1]].nome = action[-1]
-        new_state.board.h -= (len(new_state.board.matrix[action[0]][action[1]].possibilities) - 1)
-        new_state.board.matrix[action[0]][action[1]].possibilities = [action[-1]]
-        new_state.board.matrix[action[0]][action[1]].state = FINAL
-        new_state.board.p_left.remove([action[0], action[1]])
-        stack = [new_state.board.matrix[action[0]][action[1]]]
-        #self.check_adj_final(stack)
+        p_x = action[0]
+        p_y = action[1]
+        p_name = action[2]
+        new_state = self.copy_state(state.board.matrix, state.board.p_left, state.board.tamanho)
+        piece = new_state.board.matrix[p_x][p_y]
+        piece.nome = p_name
+        piece.possibilities = [p_name]
+        piece.state = FINAL
+        new_state.board.p_left.remove([p_x, p_y])
         return new_state
         
 
@@ -307,145 +448,11 @@ class PipeMania(Problem):
 
     def h(self, node: Node):#Node is the same as a pipe mania state in its atribute node.state
         """Função heuristica utilizada para a procura A*."""
-        return self.board.h
+        return 1
         
 
     # TODO: outros metodos da classe
-    def check_possibilities(self, x, y, piece: str):
-            #convinha verificar com nome.. ( piece is string)
-            #Check just if you need to remove the directions, retorna list/tuplo
-            if not (self.board.matrix[x][y].possibilities == []):
-                return self.board.matrix[x][y].possibilities
-            res = list(initial_positions[piece[0]])
-            res1 = list(initial_positions[piece[0]])
-            last = self.board.tamanho - 1
-            if x == 0:
-                for pos in res:
-                    if not (dict_pos[pos][0] == ""):
-                            res1.remove(pos)
-            elif x == last:
-                for pos in res:
-                    if not (dict_pos[pos][1] == ""):
-                        if(pos in res1):
-                            res1.remove(pos)
-            if y == last:
-                for pos in res:
-                    if not (dict_pos[pos][2] == ""):
-                        if(pos in res1):
-                            res1.remove(pos)
-            elif y == 0:
-                for pos in res:
-                    if not (dict_pos[pos][3] == ""):
-                        if(pos in res1):
-                            res1.remove(pos)
-                            
-            
-            self.board.matrix[x][y].possibilities = res1
-            self.board.h -= (4 - len(res1))
-            return res1
-
-
-                        
-    def check_adj_final(self, stack: list):
-        """" !!! 0 = white       1 = gray      2 = black !!!! """
-        finals = 0
-        side = [C, B, E, D]
-        omlll = [[-1, 0], [1, 0], [0, -1], [0, 1]]
-        while(len(stack) != 0):
-            cur = stack[-1]
-            if(cur.cor == 0):
-                i = 0
-                cur.cor = 1
-                horizontal = self.board.adjacent_horizontal_values(cur.coord[0], cur.coord[1])
-                pieces = self.board.adjacent_vertical_values(cur.coord[0] , cur.coord[1])
-                pieces.append(horizontal[0]) #can prob put at same time/nah you end up with nested lists:(, will try it later
-                pieces.append(horizontal[1])
-                for side_pieces in pieces :
-                    if(side_pieces != ""):  
-                        caca = self.board.matrix[cur.coord[0] + omlll[i][0]][cur.coord[1]+omlll[i][1]] #coords of side piece
-                        if( caca.state != FINAL):
-                            possibli = list(self.check_possibilities(caca.coord[0], caca.coord[1], side_pieces))
-                            for possibilities in possibli: #aqui n é do cur
-                                if(not isvalid(cur, possibilities,  side[i])):
-                                    self.board.h -= 1
-                                    caca.possibilities.remove(possibilities)
-                            
-                        if(len(self.board.matrix[caca.coord[0]][caca.coord[1]].possibilities) == 1 and caca.state != FINAL):
-                            caca.state = FINAL
-                            self.board.p_left.remove([caca.coord[0], caca.coord[1]])
-                            stack.append(caca)
-                            caca.nome = self.board.matrix[caca.coord[0]][caca.coord[1]].possibilities[0]   
-                    i += 1
-                    
-            elif(cur.cor == 1):
-                    finals += 1
-                    cur.cor = 2
-                    stack.pop()
-            else:
-                finals += 1
-                stack.pop()
-
-        return finals
-        
-    def calcs(self):
-        #checkar final states e set them on the boarders, clockwise
-        finals = 0
-        stack = []
-        for i in range(self.board.tamanho): 
-            if self.board.matrix[0][i].state != FINAL:
-                possible = self.check_possibilities(0, i, self.board.matrix[0][i].nome )
-                if(len(possible) == 1):
-                    self.board.matrix[0][i].nome = possible[0]
-                    self.board.matrix[0][i].state = FINAL
-                    self.board.p_left.remove([0, i])
-                    stack.append(self.board.matrix[0][i])
-                    finals += self.check_adj_final(stack)
-                else:
-                    self.board.matrix[0][i].nome = possible[0]
-                    self.board.matrix[0][i].state = MAYBE
-
-        for i in range(1, self.board.tamanho): # dont check first ine of collum, already checked
-            if(self.board.matrix[i][- 1].state != FINAL):
-                possible = self.check_possibilities(i, self.board.tamanho-1 , self.board.matrix[i][-1].nome )
-                if(len(possible) == 1):
-                    self.board.matrix[i][-1].nome = possible[0]
-                    self.board.matrix[i][-1].state = FINAL
-                    self.board.p_left.remove([i, self.board.tamanho - 1])
-                    stack.append(self.board.matrix[i][-1])
-                    finals += self.check_adj_final(stack)
-                else:
-                    self.board.matrix[i][-1].nome = possible[0]
-                    self.board.matrix[i][-1].state = MAYBE
-            
-        for i in range(self.board.tamanho - 1, -1, -1):
-            size = self.board.tamanho - 1
-            if(self.board.matrix[size][i].state != FINAL):
-                possible = self.check_possibilities( size, i, self.board.matrix[size][i].nome )
-                if(len(possible) == 1):
-                    self.board.matrix[size][i].nome = possible[0]
-                    self.board.matrix[size][i].state = FINAL
-                    self.board.p_left.remove([size, i])
-                    stack.append(self.board.matrix[size ][i])
-                    finals += self.check_adj_final(stack)
-                else:
-                    self.board.matrix[size][i].nome = possible[0]
-                    self.board.matrix[size][i].state = MAYBE
-
-        for i in range(self.board.tamanho - 1, -1, -1):
-            size = self.board.tamanho - 1 
-            if(self.board.matrix[i][0].state != FINAL):
-                possible = self.check_possibilities(i, 0, self.board.matrix[size ][i].nome )
-                if(len(possible) == 1):
-                    self.board.matrix[i][0].nome = possible[0]
-                    self.board.matrix[i][0].state = FINAL
-                    self.board.p_left.remove([i, 0])
-                    stack.append(self.board.matrix[i][0])
-                    finals += self.check_adj_final(stack)
-                else:
-                    self.board.matrix[i][0].nome = possible[0]
-                    self.board.matrix[i][0].state = MAYBE
-
-        return (self.board, finals)
+    
 
         
         
@@ -459,10 +466,9 @@ if __name__ == "__main__":
     # Retirar a solução a partir do nó resultante,
     # Imprimir para o standard output no formato indicado.
     board = Board.parse_instance()
-    problem = PipeMania(board)
-    caca = problem.calcs()
-    initial_state = PipeManiaState(caca[0]) #the first state is after the most finals are done!, the cost starts at 0
-    initial_state.final_pieces = caca[1]
+    initial_state = PipeManiaState(board)
+    initial_state.calcs()
+    problem = PipeMania(initial_state.board)
     problem.initial = initial_state
     #node = depth_first_tree_search(problem)
     #node = breadth_first_tree_search(problem)

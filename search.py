@@ -100,6 +100,8 @@ class Node:
         """[Figure 3.10]"""
         next_state = problem.result(self.state, action)
         next_node = Node(next_state, self, action, problem.path_cost(self.path_cost, self.state, action, next_state))
+        print("Dad", self)
+        print("Child", next_node)
         return next_node
 
     def solution(self):
@@ -279,6 +281,7 @@ def best_first_graph_search(problem, f, display=False):
             return node
         explored.add(node.state)
         for child in node.expand(problem):
+            print("This is the child", child)
             if child.state not in explored and child not in frontier:
                 frontier.append(child)
             elif child in frontier:
