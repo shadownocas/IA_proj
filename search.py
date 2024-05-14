@@ -190,8 +190,6 @@ def breadth_first_tree_search(problem):
 
     while frontier:
         node = frontier.popleft()
-        print("search print")
-        print(node.state.board.print_board())
         if problem.goal_test(node.state):
             return node
         frontier.extend(node.expand(problem))
@@ -276,7 +274,6 @@ def best_first_graph_search(problem, f, display=False):
     while frontier:
         node = frontier.pop()
         print("Search print")
-        node.state.board.print_board()
         if problem.goal_test(node.state):
             print("It got here")
             if display:
@@ -285,6 +282,8 @@ def best_first_graph_search(problem, f, display=False):
         explored.add(node.state)
         print("This is the explored list", explored)
         for child in node.expand(problem):
+            if (child in explored):
+                print("AGHGGHGHGHGHGHGHGHGHGh")
             if child.state not in explored and child not in frontier:
                 print("These are added to the frontier")
                 child.state.board.print_board()

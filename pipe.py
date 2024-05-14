@@ -126,10 +126,13 @@ class PipeManiaState:
                                     caca.possibilities.remove(possibilities)
                             
                         if(len(self.board.matrix[caca.coord[0]][caca.coord[1]].possibilities) == 1 and caca.state != FINAL):
+                            print("piece final: a ser tirada qd adj_final : ", caca.coord[0], caca.coord[1])
                             caca.state = FINAL
                             self.board.p_left.remove([caca.coord[0], caca.coord[1]])
                             stack.append(caca)
-                            caca.nome = self.board.matrix[caca.coord[0]][caca.coord[1]].possibilities[0]   
+                            caca.nome = self.board.matrix[caca.coord[0]][caca.coord[1]].possibilities[0] 
+                            self.board.matrix[caca.coord[0]][caca.coord[1]].nome = caca.nome
+                            print("mudou nome final para: ",self.board.matrix[caca.coord[0]][caca.coord[1]].nome )
                     i += 1
                     
             elif(cur.cor == 1):
@@ -362,6 +365,8 @@ class PipeMania(Problem):
         """Retorna uma lista de ações que podem ser executadas a
         partir do estado passado como argumento."""
         actions = []
+        if (len(state.board.p_left) == 0):
+            return actions
         coord = state.board.p_left[0]
         p_x = coord[0]
         p_y = coord[1]
@@ -369,7 +374,8 @@ class PipeMania(Problem):
         state.check_possibilities(p_x, p_y, piece_name)
         for possibility in state.board.matrix[p_x][p_y].possibilities:
             actions.append([p_x, p_y, possibility])
-        print("Possibilities", actions)
+
+        print("Possibilities", actions ,"de :", p_x, p_y)
         return actions
                
     def result(self, state: PipeManiaState, action):
@@ -381,12 +387,16 @@ class PipeMania(Problem):
         p_x = action[0]
         p_y = action[1]
         p_name = action[2]
-        new_state = self.copy_state(state.board.matrix, state.board.p_left, state.board.tamanho)
+        new_state = copy.deepcopy(state)
         piece = new_state.board.matrix[p_x][p_y]
-        piece.nome = p_name
+        #if(p_name in piece.possibilities):
         piece.possibilities = [p_name]
+        piece.nome = p_name
         piece.state = FINAL
-        new_state.board.p_left.remove([p_x, p_y])
+        if ([p_x, p_y] in state.board.p_left):
+            new_state.board.p_left.remove([p_x, p_y])
+        print("p_left after removal: ",new_state.board.p_left )
+        new_state.check_adj_final([piece])
         new_state.board.print_board()
         return new_state
         
@@ -430,8 +440,8 @@ if __name__ == "__main__":
     # Imprimir para o standard output no formato indicado.
     board = Board.parse_instance()
     initial_state = PipeManiaState(board)
-    initial_state.calcs()
-    initial_state.board.matrix[0][0].nome = "VC"
+    #initial_state.calcs()
+    """initial_state.board.matrix[0][0].nome = "VC"
     initial_state.board.matrix[0][0].possibilities = ["VC", "VB"]
     initial_state.board.p_left = [[0, 0]]
     initial_state.board.matrix[0][1].nome = "VC"
@@ -439,13 +449,13 @@ if __name__ == "__main__":
     initial_state.board.p_left.append([0, 1])
     initial_state.board.matrix[1][0].nome = "FD"
     initial_state.board.matrix[1][0].possibilities = ["FC", "FE"]
-    initial_state.board.p_left.append([1, 0])
+    initial_state.board.p_left.append([1, 0])"""
     problem = PipeMania(initial_state.board)
     problem.initial = initial_state
-    #node = depth_first_tree_search(problem)
+    node = depth_first_tree_search(problem)
     #node = breadth_first_tree_search(problem)
-    node = astar_search(problem)
-    print(problem.goal_test(node.state))
+    #node = astar_search(problem)
+    node.state.board.print_board()
     # Mostrar valor na posição (2, 2):
    
    
