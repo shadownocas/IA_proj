@@ -455,6 +455,7 @@ if __name__ == "__main__":
     node = depth_first_tree_search(problem)
     #node = breadth_first_tree_search(problem)
     #node = astar_search(problem)
+    print(problem.goal_test(node.state))
     node.state.board.print_board()
     # Mostrar valor na posição (2, 2):
    
