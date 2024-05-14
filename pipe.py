@@ -126,13 +126,13 @@ class PipeManiaState:
                                     caca.possibilities.remove(possibilities)
                             
                         if(len(self.board.matrix[caca.coord[0]][caca.coord[1]].possibilities) == 1 and caca.state != FINAL):
-                            print("piece final: a ser tirada qd adj_final : ", caca.coord[0], caca.coord[1])
+                            #print("piece final: a ser tirada qd adj_final : ", caca.coord[0], caca.coord[1])
                             caca.state = FINAL
                             self.board.p_left.remove([caca.coord[0], caca.coord[1]])
                             stack.append(caca)
                             caca.nome = self.board.matrix[caca.coord[0]][caca.coord[1]].possibilities[0] 
                             self.board.matrix[caca.coord[0]][caca.coord[1]].nome = caca.nome
-                            print("mudou nome final para: ",self.board.matrix[caca.coord[0]][caca.coord[1]].nome )
+                            #print("mudou nome final para: ",self.board.matrix[caca.coord[0]][caca.coord[1]].nome )
                     i += 1
                     
             elif(cur.cor == 1):
@@ -375,7 +375,6 @@ class PipeMania(Problem):
         for possibility in state.board.matrix[p_x][p_y].possibilities:
             actions.append([p_x, p_y, possibility])
 
-        print("Possibilities", actions ,"de :", p_x, p_y)
         return actions
                
     def result(self, state: PipeManiaState, action):
@@ -383,7 +382,6 @@ class PipeMania(Problem):
         'state' passado como argumento. A ação a executar deve ser uma
         das presentes na lista obtida pela execução de
         self.actions(state)."""
-        print("Applying this", action)
         p_x = action[0]
         p_y = action[1]
         p_name = action[2]
@@ -395,9 +393,7 @@ class PipeMania(Problem):
         piece.state = FINAL
         if ([p_x, p_y] in state.board.p_left):
             new_state.board.p_left.remove([p_x, p_y])
-        print("p_left after removal: ",new_state.board.p_left )
         new_state.check_adj_final([piece])
-        new_state.board.print_board()
         return new_state
         
 
@@ -452,10 +448,10 @@ if __name__ == "__main__":
     initial_state.board.p_left.append([1, 0])"""
     problem = PipeMania(initial_state.board)
     problem.initial = initial_state
-    node = depth_first_tree_search(problem)
-    #node = breadth_first_tree_search(problem)
+    #node = depth_first_tree_search(problem)
+    node = breadth_first_tree_search(problem)
     #node = astar_search(problem)
-    print(problem.goal_test(node.state))
+    #print(problem.goal_test(node.state))
     node.state.board.print_board()
     # Mostrar valor na posição (2, 2):
    
