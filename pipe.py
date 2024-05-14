@@ -398,6 +398,7 @@ class PipeMania(Problem):
         
 
     def goal_test(self, state: PipeManiaState):   #CHANGE THIS!!!! we just need to do: tamanho ^2 == state.final_pieces
+        #pode dar ciclos fechados.... ex da mati
         """Retorna True se e só se o estado passado como argumento é
         um estado objetivo. Deve verificar se todas as posições do tabuleiro
         estão preenchidas de acordo com as regras do problema.
@@ -436,7 +437,7 @@ if __name__ == "__main__":
     # Imprimir para o standard output no formato indicado.
     board = Board.parse_instance()
     initial_state = PipeManiaState(board)
-    #initial_state.calcs()
+    initial_state.calcs()
     """initial_state.board.matrix[0][0].nome = "VC"
     initial_state.board.matrix[0][0].possibilities = ["VC", "VB"]
     initial_state.board.p_left = [[0, 0]]
@@ -449,10 +450,10 @@ if __name__ == "__main__":
     problem = PipeMania(initial_state.board)
     problem.initial = initial_state
     #node = depth_first_tree_search(problem)
-    node = breadth_first_tree_search(problem)
+    #node = breadth_first_tree_search(problem)
     #node = astar_search(problem)
-    #print(problem.goal_test(node.state))
-    node.state.board.print_board()
+    print(problem.goal_test(initial_state))
+    initial_state.board.print_board()
     # Mostrar valor na posição (2, 2):
    
    
