@@ -38,17 +38,15 @@ class Piece:
         self.cor = 0
         self.coord = []
         self.nome = nome
-        match nome[0]:
-            case "L":
-                self.positions = [nome[0] + "H", nome[0] + "V"]
-                match nome[0]:
-                    case "H":
-                        self.dir = (type[nome[0]], 0)
-                    case "V":
-                        self.dir = (type[nome[0]], 1)
-            case _:
-                self.positions = [nome[0] + "C", nome[0] + "B", nome[0] + "D", nome[0] + "E"]
-                self.dir = (type[nome[0]], directions[nome[1]])
+        if (nome[0] == "L"):
+            self.positions = [nome[0] + "H", nome[0] + "V"]
+            if (nome[0] == "H"):
+                self.dir = (type[nome[0]], 0)
+            elif(nome[0] == "V"):
+                self.dir = (type[nome[0]], 1)
+        else:
+            self.positions = [nome[0] + "C", nome[0] + "B", nome[0] + "D", nome[0] + "E"]
+            self.dir = (type[nome[0]], directions[nome[1]])
         
 
 
@@ -224,7 +222,7 @@ class Board:
                 #print(self.get_value(i, j), end=" \t")
                 print(self.get_value(i, j),  end="\t")
             print("\n", end= "")
-
+           
     def adjacent_vertical_values(self, row: int, col: int):
         """Devolve os valores imediatamente acima e abaixo,
         respectivamente."""
@@ -451,9 +449,8 @@ if __name__ == "__main__":
     problem.initial = initial_state
     #node = depth_first_tree_search(problem)
     #node = breadth_first_tree_search(problem)
-    #node = astar_search(problem)
-    print(problem.goal_test(initial_state))
-    initial_state.board.print_board()
+    node = astar_search(problem)
+    node.state.board.print_board()
     # Mostrar valor na posição (2, 2):
    
    

@@ -273,23 +273,15 @@ def best_first_graph_search(problem, f, display=False):
     explored = set()
     while frontier:
         node = frontier.pop()
-        print("Search print")
         if problem.goal_test(node.state):
-            print("It got here")
             if display:
                 print(len(explored), "paths have been expanded and", len(frontier), "paths remain in the frontier")
             return node
         explored.add(node.state)
-        print("This is the explored list", explored)
         for child in node.expand(problem):
-            if (child in explored):
-                print("AGHGGHGHGHGHGHGHGHGHGh")
             if child.state not in explored and child not in frontier:
-                print("These are added to the frontier")
-                child.state.board.print_board()
                 frontier.append(child)
             elif child in frontier:
-                print("This is the child", child.state)
                 if f(child) < frontier[child]:
                     del frontier[child]
                     frontier.append(child)
