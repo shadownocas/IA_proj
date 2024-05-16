@@ -36,6 +36,7 @@ class Piece:
         self.state = WRONG
         self.possibilities = []
         self.cor = 0
+        self.color = 0
         self.coord = []
         self.nome = nome
         if (nome[0] == "L"):
@@ -155,7 +156,8 @@ class PipeManiaState:
                     self.board.matrix[0][i].state = FINAL
                     self.board.p_left.remove([0, i])
                     stack.append(self.board.matrix[0][i])
-                    finals += self.check_adj_final(stack)
+                    self.final_pieces += self.check_adj_final(stack)
+                    
                 else:
                     self.board.matrix[0][i].nome = possible[0]
                     self.board.matrix[0][i].state = MAYBE
@@ -168,7 +170,7 @@ class PipeManiaState:
                     self.board.matrix[i][-1].state = FINAL
                     self.board.p_left.remove([i, self.board.tamanho - 1])
                     stack.append(self.board.matrix[i][-1])
-                    finals += self.check_adj_final(stack)
+                    self.final_pieces += self.check_adj_final(stack)
                 else:
                     self.board.matrix[i][-1].nome = possible[0]
                     self.board.matrix[i][-1].state = MAYBE
@@ -182,7 +184,7 @@ class PipeManiaState:
                     self.board.matrix[size][i].state = FINAL
                     self.board.p_left.remove([size, i])
                     stack.append(self.board.matrix[size ][i])
-                    finals += self.check_adj_final(stack)
+                    self.final_pieces += self.check_adj_final(stack)
                 else:
                     self.board.matrix[size][i].nome = possible[0]
                     self.board.matrix[size][i].state = MAYBE
@@ -196,7 +198,7 @@ class PipeManiaState:
                     self.board.matrix[i][0].state = FINAL
                     self.board.p_left.remove([i, 0])
                     stack.append(self.board.matrix[i][0])
-                    finals += self.check_adj_final(stack)
+                    self.final_pieces += self.check_adj_final(stack)
                 else:
                     self.board.matrix[i][0].nome = possible[0]
                     self.board.matrix[i][0].state = MAYBE
@@ -220,8 +222,10 @@ class Board:
         for i in range(self.tamanho):
             for j in range(self.tamanho):
                 #print(self.get_value(i, j), end=" \t")
-                print(self.get_value(i, j),  end="\t")
-            print("\n", end= "")
+                if (not (j == self.tamanho -1)):
+                    print(self.get_value(i, j),  end="\t")
+                else:
+                    print(self.get_value(i, j))
            
     def adjacent_vertical_values(self, row: int, col: int):
         """Devolve os valores imediatamente acima e abaixo,
@@ -332,13 +336,7 @@ def isvalid(piece1: Piece, piece2, direction):
     return False
 
 def isvaliddddd(piece1: Piece, piece2, direction):
-    if (dict_pos[piece1.nome][direction] == ""):
-        return True
-    elif(piece2 in dict_pos[piece1.nome][direction]):
-        return True
-    return False
-    
-    
+    return piece2 in dict_pos[piece1.nome][direction]
 
 class PipeMania(Problem):
     def __init__(self, board: Board):
@@ -391,17 +389,17 @@ class PipeMania(Problem):
         piece.state = FINAL
         if ([p_x, p_y] in state.board.p_left):
             new_state.board.p_left.remove([p_x, p_y])
-        new_state.check_adj_final([piece])
+        new_state.final_pieces += new_state.check_adj_final([piece])
         return new_state
         
 
-    def goal_test(self, state: PipeManiaState):   #CHANGE THIS!!!! we just need to do: tamanho ^2 == state.final_pieces
+    """def goal_test(self, state: PipeManiaState):   #CHANGE THIS!!!! we just need to do: tamanho ^2 == state.final_pieces
         #pode dar ciclos fechados.... ex da mati
-        """Retorna True se e só se o estado passado como argumento é
+        Retorna True se e só se o estado passado como argumento é
         um estado objetivo. Deve verificar se todas as posições do tabuleiro
         estão preenchidas de acordo com as regras do problema.
         !!! 0 = white       1 = gray      2 = black !!!!
-        """
+        
         for i in range(state.board.tamanho): #row
            for j in range(state.board.tamanho): # col
                 horizontal = state.board.adjacent_horizontal_values(i, j)
@@ -410,7 +408,52 @@ class PipeMania(Problem):
                    (not isvaliddddd(state.board.matrix[i][j], vertical[1], B)) or (not isvaliddddd(state.board.matrix[i][j], vertical[0], C))):
                     return False
         return True
-        #return self.board.h == self.board.tamanho**2
+        #return self.board.h == self.board.tamanho**2"""
+
+
+    def goal_test(self, state: PipeManiaState):
+            """Retorna True se e só se o estado passado como argumento é
+            um estado objetivo. Deve verificar se todas as posições do tabuleiro
+            estão preenchidas de acordo com as regras do problema.
+            !!! 0 = white       1 = gray      2 = black !!!!
+            """
+            if (not (state.final_pieces == state.board.tamanho **2)):
+                return False
+            pieces = 0
+            side = [C, B, E, D]
+            current = []
+            omlll = [[-1, 0], [1, 0], [0, -1], [0, 1]]
+            stack = [state.board.matrix[0][0]]
+            while(len(stack) != 0):
+                cur = stack[-1]
+                if(cur.color == 0):
+                    i = 0
+                    cur.color = 1
+                    horizontal = state.board.adjacent_horizontal_values(cur.coord[0], cur.coord[1])
+                    pieces1 = state.board.adjacent_vertical_values(cur.coord[0] , cur.coord[1])
+                    pieces1.append(horizontal[0]) #can prob put at same time/nah you end up with nested lists:(, will try it later
+                    pieces1.append(horizontal[1])
+                    for side_pieces in pieces1:
+                        if(side_pieces != ""):  
+                            caca = state.board.matrix[cur.coord[0] + omlll[i][0]][cur.coord[1]+omlll[i][1]] #coords of side piece
+                            if isvaliddddd(cur, caca.nome, side[i]):
+                                stack.append(caca)
+                        i += 1
+                        
+                elif(cur.color == 1):
+                        cur.color = 2
+                        pieces += 1
+                        current.append(cur)
+                        stack.pop()
+                else:
+                    stack.pop()
+                    
+            if (pieces == state.board.tamanho ** 2):
+                return True
+            for i in current:
+                i.color = 0
+            return False
+                
                
                 
 
