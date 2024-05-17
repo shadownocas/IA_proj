@@ -258,15 +258,6 @@ class Board:
 
     @staticmethod
     def parse_instance():
-        """Lê o test do standard input (stdin) que é passado como argumento
-        e retorna uma instância da classe Board.
-
-        Por exemplo:
-            $ python3 pipe.py < test-01.txt
-
-            > from sys import stdin
-            > line = stdin.readline().split()
-        """
         board_matrix = []
         pieces_left = []
 
@@ -285,18 +276,14 @@ class Board:
         for row in range(1, len(line)):
             line = stdin.readline().split()
             pieces_row = [Piece(piece_name) for piece_name in line]
-            
             # Assign coordinates to each Piece and append the row to board_matrix
             for col in range(len(line)):
                 pieces_row[col].coord = [row, col]
                 pieces_left.append([row, col])
             board_matrix.append(pieces_row)
         
-        # Print board_matrix to verify the structure
         return Board(board_matrix, len(line), pieces_left)
         
-
-    # TODO: outros metodos da classe
 
 c = ["BB", "BE", "BD", "VB", "VE", "LV", "FB"]
 b = ["BC", "BE", "BD", "VC", "VD", "LV", "FC"]
@@ -363,14 +350,17 @@ class PipeMania(Problem):
         actions = []
         if (len(state.board.p_left) == 0):
             return actions
-        coord = state.board.p_left[0]
+        minimum = state.board.p_left[0]
+        for i in state.board.p_left:
+            if len(i) < len(minimum):
+                minimum = i
+        coord = minimum
         p_x = coord[0]
         p_y = coord[1]
         piece_name = state.board.matrix[p_x][p_y].nome
         state.check_possibilities(p_x, p_y, piece_name)
         for possibility in state.board.matrix[p_x][p_y].possibilities:
             actions.append([p_x, p_y, possibility])
-
         return actions
                
     def result(self, state: PipeManiaState, action):
@@ -391,24 +381,6 @@ class PipeMania(Problem):
             new_state.board.p_left.remove([p_x, p_y])
         new_state.final_pieces += new_state.check_adj_final([piece])
         return new_state
-        
-
-    """def goal_test(self, state: PipeManiaState):   #CHANGE THIS!!!! we just need to do: tamanho ^2 == state.final_pieces
-        #pode dar ciclos fechados.... ex da mati
-        Retorna True se e só se o estado passado como argumento é
-        um estado objetivo. Deve verificar se todas as posições do tabuleiro
-        estão preenchidas de acordo com as regras do problema.
-        !!! 0 = white       1 = gray      2 = black !!!!
-        
-        for i in range(state.board.tamanho): #row
-           for j in range(state.board.tamanho): # col
-                horizontal = state.board.adjacent_horizontal_values(i, j)
-                vertical = state.board.adjacent_vertical_values(i, j)
-                if((not isvaliddddd(state.board.matrix[i][j], horizontal[1], D)) or (not isvaliddddd(state.board.matrix[i][j], horizontal[0], E)) or
-                   (not isvaliddddd(state.board.matrix[i][j], vertical[1], B)) or (not isvaliddddd(state.board.matrix[i][j], vertical[0], C))):
-                    return False
-        return True
-        #return self.board.h == self.board.tamanho**2"""
 
 
     def goal_test(self, state: PipeManiaState):
@@ -439,7 +411,6 @@ class PipeMania(Problem):
                             if isvaliddddd(cur, caca.nome, side[i]):
                                 stack.append(caca)
                         i += 1
-                        
                 elif(cur.color == 1):
                         cur.color = 2
                         pieces += 1
@@ -450,28 +421,18 @@ class PipeMania(Problem):
                     
             if (pieces == state.board.tamanho ** 2):
                 return True
+            
             for i in current:
                 i.color = 0
+
             return False
-                
-               
                 
 
     def h(self, node: Node):#Node is the same as a pipe mania state in its atribute node.state
         """Função heuristica utilizada para a procura A*."""
-        return 1
-        
-
-    # TODO: outros metodos da classe
-    
-
-        
-        
-                
-
+        return self.board.h
 
 if __name__ == "__main__":
-    # TODO:
     # Ler o ficheiro do standard input,
     # Usar uma técnica de procura para resolver a instância,
     # Retirar a solução a partir do nó resultante,
@@ -479,15 +440,6 @@ if __name__ == "__main__":
     board = Board.parse_instance()
     initial_state = PipeManiaState(board)
     initial_state.calcs()
-    """initial_state.board.matrix[0][0].nome = "VC"
-    initial_state.board.matrix[0][0].possibilities = ["VC", "VB"]
-    initial_state.board.p_left = [[0, 0]]
-    initial_state.board.matrix[0][1].nome = "VC"
-    initial_state.board.matrix[0][1].possibilities = ["VC", "VE"]
-    initial_state.board.p_left.append([0, 1])
-    initial_state.board.matrix[1][0].nome = "FD"
-    initial_state.board.matrix[1][0].possibilities = ["FC", "FE"]
-    initial_state.board.p_left.append([1, 0])"""
     problem = PipeMania(initial_state.board)
     problem.initial = initial_state
     #node = depth_first_tree_search(problem)
