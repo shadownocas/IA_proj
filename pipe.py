@@ -54,10 +54,12 @@ class Piece:
 class PipeManiaState:
     state_id = 0
 
-    def __init__(self, board):
-        self.board = board
+    def __init__(self, matrix, p_left, tamanho, final_pieces):
+        self.matrix = matrix
+        self.p_left = p_left
+        self.tamanho = tamanho
         self.cost = PipeManiaState.state_id
-        self.final_pieces = 0
+        self.final_pieces = final_pieces
         self.h = 0
         PipeManiaState.state_id += 1
 
@@ -67,150 +69,13 @@ class PipeManiaState:
     def path_cost(self):
         return self.cost
 
-    def check_possibilities(self, x, y, piece: str):
-            if not (self.board.matrix[x][y].possibilities == []):
-                return self.board.matrix[x][y].possibilities
-            res = list(initial_positions[piece[0]])
-            res1 = list(initial_positions[piece[0]])
-            last = self.board.tamanho - 1
-            if x == 0:
-                for pos in res:
-                    if not (dict_pos[pos][0] == ""):
-                            res1.remove(pos)
-            elif x == last:
-                for pos in res:
-                    if not (dict_pos[pos][1] == ""):
-                        if(pos in res1):
-                            res1.remove(pos)
-            if y == last:
-                for pos in res:
-                    if not (dict_pos[pos][2] == ""):
-                        if(pos in res1):
-                            res1.remove(pos)
-            elif y == 0:
-                for pos in res:
-                    if not (dict_pos[pos][3] == ""):
-                        if(pos in res1):
-                            res1.remove(pos)
-                            
-            
-            self.board.matrix[x][y].possibilities = res1
-            self.board.h -= (4 - len(res1))
-            return res1
-
-
-                        
-    def check_adj_final(self, stack: list):
-        """" !!! 0 = white       1 = gray      2 = black !!!! """
-        finals = 0
-        side = [C, B, E, D]
-        omlll = [[-1, 0], [1, 0], [0, -1], [0, 1]]
-        while(len(stack) != 0):
-            cur = stack[-1]
-            if(cur.cor == 0):
-                i = 0
-                cur.cor = 1
-                horizontal = self.board.adjacent_horizontal_values(cur.coord[0], cur.coord[1])
-                pieces = self.board.adjacent_vertical_values(cur.coord[0] , cur.coord[1])
-                pieces.append(horizontal[0]) #can prob put at same time/nah you end up with nested lists:(, will try it later
-                pieces.append(horizontal[1])
-                for side_pieces in pieces :
-                    if(side_pieces != ""):  
-                        caca = self.board.matrix[cur.coord[0] + omlll[i][0]][cur.coord[1]+omlll[i][1]] #coords of side piece
-                        if( caca.state != FINAL):
-                            possibli = list(self.check_possibilities(caca.coord[0], caca.coord[1], side_pieces))
-                            for possibilities in possibli: #aqui n é do cur
-                                if(not isvalid(cur, possibilities,  side[i])):
-                                    self.board.h -= 1
-                                    caca.possibilities.remove(possibilities)
-                            
-                        if(len(self.board.matrix[caca.coord[0]][caca.coord[1]].possibilities) == 1 and caca.state != FINAL):
-                            #print("piece final: a ser tirada qd adj_final : ", caca.coord[0], caca.coord[1])
-                            caca.state = FINAL
-                            self.board.p_left.remove([caca.coord[0], caca.coord[1]])
-                            stack.append(caca)
-                            caca.nome = self.board.matrix[caca.coord[0]][caca.coord[1]].possibilities[0] 
-                            self.board.matrix[caca.coord[0]][caca.coord[1]].nome = caca.nome
-                            #print("mudou nome final para: ",self.board.matrix[caca.coord[0]][caca.coord[1]].nome )
-                    i += 1
-                    
-            elif(cur.cor == 1):
-                    finals += 1
-                    cur.cor = 2
-                    stack.pop()
-            else:
-                finals += 1
-                stack.pop()
-
-        return finals
-        
-    def calcs(self):
-        #checkar final states e set them on the boarders, clockwise
-        finals = 0
-        stack = []
-        for i in range(self.board.tamanho): 
-            if self.board.matrix[0][i].state != FINAL:
-                possible = self.check_possibilities(0, i, self.board.matrix[0][i].nome )
-                if(len(possible) == 1):
-                    self.board.matrix[0][i].nome = possible[0]
-                    self.board.matrix[0][i].state = FINAL
-                    self.board.p_left.remove([0, i])
-                    stack.append(self.board.matrix[0][i])
-                    self.final_pieces += self.check_adj_final(stack)
-                    
-                else:
-                    self.board.matrix[0][i].nome = possible[0]
-                    self.board.matrix[0][i].state = MAYBE
-
-        for i in range(1, self.board.tamanho): # dont check first ine of collum, already checked
-            if(self.board.matrix[i][- 1].state != FINAL):
-                possible = self.check_possibilities(i, self.board.tamanho-1 , self.board.matrix[i][-1].nome )
-                if(len(possible) == 1):
-                    self.board.matrix[i][-1].nome = possible[0]
-                    self.board.matrix[i][-1].state = FINAL
-                    self.board.p_left.remove([i, self.board.tamanho - 1])
-                    stack.append(self.board.matrix[i][-1])
-                    self.final_pieces += self.check_adj_final(stack)
-                else:
-                    self.board.matrix[i][-1].nome = possible[0]
-                    self.board.matrix[i][-1].state = MAYBE
-            
-        for i in range(self.board.tamanho - 1, -1, -1):
-            size = self.board.tamanho - 1
-            if(self.board.matrix[size][i].state != FINAL):
-                possible = self.check_possibilities( size, i, self.board.matrix[size][i].nome )
-                if(len(possible) == 1):
-                    self.board.matrix[size][i].nome = possible[0]
-                    self.board.matrix[size][i].state = FINAL
-                    self.board.p_left.remove([size, i])
-                    stack.append(self.board.matrix[size ][i])
-                    self.final_pieces += self.check_adj_final(stack)
-                else:
-                    self.board.matrix[size][i].nome = possible[0]
-                    self.board.matrix[size][i].state = MAYBE
-
-        for i in range(self.board.tamanho - 1, -1, -1):
-            size = self.board.tamanho - 1 
-            if(self.board.matrix[i][0].state != FINAL):
-                possible = self.check_possibilities(i, 0, self.board.matrix[size ][i].nome )
-                if(len(possible) == 1):
-                    self.board.matrix[i][0].nome = possible[0]
-                    self.board.matrix[i][0].state = FINAL
-                    self.board.p_left.remove([i, 0])
-                    stack.append(self.board.matrix[i][0])
-                    self.final_pieces += self.check_adj_final(stack)
-                else:
-                    self.board.matrix[i][0].nome = possible[0]
-                    self.board.matrix[i][0].state = MAYBE
-
-        return (self.board, finals)
-
 class Board:
     """Representação interna de um tabuleiro de PipeMania."""
-    def __init__(self, board_matrix, tamanho, pieces_left):
+    def __init__(self, board_matrix, tamanho, pieces_left, final_pieces):
         self.matrix = board_matrix
         self.tamanho = tamanho
         self.p_left = pieces_left
+        self.final_pieces = final_pieces
         self.h = (tamanho **2) * 4
 
     
@@ -254,6 +119,144 @@ class Board:
             value2 = ""
 
         return [value1, value2]
+    
+    def check_possibilities(self, x, y, piece: str):
+            if not (self.matrix[x][y].possibilities == []):
+                return self.matrix[x][y].possibilities
+            res = list(initial_positions[piece[0]])
+            res1 = list(initial_positions[piece[0]])
+            last = self.tamanho - 1
+            if x == 0:
+                for pos in res:
+                    if not (dict_pos[pos][0] == ""):
+                            res1.remove(pos)
+            elif x == last:
+                for pos in res:
+                    if not (dict_pos[pos][1] == ""):
+                        if(pos in res1):
+                            res1.remove(pos)
+            if y == last:
+                for pos in res:
+                    if not (dict_pos[pos][2] == ""):
+                        if(pos in res1):
+                            res1.remove(pos)
+            elif y == 0:
+                for pos in res:
+                    if not (dict_pos[pos][3] == ""):
+                        if(pos in res1):
+                            res1.remove(pos)
+                            
+            
+            self.matrix[x][y].possibilities = res1
+            self.h -= (4 - len(res1))
+            return res1
+
+
+                        
+    def check_adj_final(self, stack: list):
+        """" !!! 0 = white       1 = gray      2 = black !!!! """
+        finals = 0
+        side = [C, B, E, D]
+        omlll = [[-1, 0], [1, 0], [0, -1], [0, 1]]
+        while(len(stack) != 0):
+            cur = stack[-1]
+            if(cur.cor == 0):
+                i = 0
+                cur.cor = 1
+                horizontal = self.adjacent_horizontal_values(cur.coord[0], cur.coord[1])
+                pieces = self.adjacent_vertical_values(cur.coord[0] , cur.coord[1])
+                pieces.append(horizontal[0]) #can prob put at same time/nah you end up with nested lists:(, will try it later
+                pieces.append(horizontal[1])
+                for side_pieces in pieces :
+                    if(side_pieces != ""):  
+                        caca = self.matrix[cur.coord[0] + omlll[i][0]][cur.coord[1]+omlll[i][1]] #coords of side piece
+                        if( caca.state != FINAL):
+                            possibli = list(self.check_possibilities(caca.coord[0], caca.coord[1], side_pieces))
+                            for possibilities in possibli: #aqui n é do cur
+                                if(not isvalid(cur, possibilities,  side[i])):
+                                    self.h -= 1
+                                    caca.possibilities.remove(possibilities)
+                            
+                        if(len(self.matrix[caca.coord[0]][caca.coord[1]].possibilities) == 1 and caca.state != FINAL):
+                            #print("piece final: a ser tirada qd adj_final : ", caca.coord[0], caca.coord[1])
+                            caca.state = FINAL
+                            self.p_left.remove([caca.coord[0], caca.coord[1]])
+                            stack.append(caca)
+                            caca.nome = self.matrix[caca.coord[0]][caca.coord[1]].possibilities[0] 
+                            self.matrix[caca.coord[0]][caca.coord[1]].nome = caca.nome
+                            #print("mudou nome final para: ",self.board.matrix[caca.coord[0]][caca.coord[1]].nome )
+                    i += 1
+                    
+            elif(cur.cor == 1):
+                    finals += 1
+                    cur.cor = 2
+                    stack.pop()
+            else:
+                finals += 1
+                stack.pop()
+
+        return finals
+        
+    def calcs(self):
+        #checkar final states e set them on the boarders, clockwise
+        finals = 0
+        stack = []
+        for i in range(self.tamanho): 
+            if self.matrix[0][i].state != FINAL:
+                possible = self.check_possibilities(0, i, self.matrix[0][i].nome )
+                if(len(possible) == 1):
+                    self.matrix[0][i].nome = possible[0]
+                    self.matrix[0][i].state = FINAL
+                    self.p_left.remove([0, i])
+                    stack.append(self.matrix[0][i])
+                    self.final_pieces += self.check_adj_final(stack)
+                    
+                else:
+                    self.matrix[0][i].nome = possible[0]
+                    self.matrix[0][i].state = MAYBE
+
+        for i in range(1, self.tamanho): # dont check first ine of collum, already checked
+            if(self.matrix[i][- 1].state != FINAL):
+                possible = self.check_possibilities(i, self.tamanho-1 , self.matrix[i][-1].nome )
+                if(len(possible) == 1):
+                    self.matrix[i][-1].nome = possible[0]
+                    self.matrix[i][-1].state = FINAL
+                    self.p_left.remove([i, self.tamanho - 1])
+                    stack.append(self.matrix[i][-1])
+                    self.final_pieces += self.check_adj_final(stack)
+                else:
+                    self.matrix[i][-1].nome = possible[0]
+                    self.matrix[i][-1].state = MAYBE
+            
+        for i in range(self.tamanho - 1, -1, -1):
+            size = self.tamanho - 1
+            if(self.matrix[size][i].state != FINAL):
+                possible = self.check_possibilities( size, i, self.matrix[size][i].nome )
+                if(len(possible) == 1):
+                    self.matrix[size][i].nome = possible[0]
+                    self.matrix[size][i].state = FINAL
+                    self.p_left.remove([size, i])
+                    stack.append(self.matrix[size ][i])
+                    self.final_pieces += self.check_adj_final(stack)
+                else:
+                    self.matrix[size][i].nome = possible[0]
+                    self.matrix[size][i].state = MAYBE
+
+        for i in range(self.tamanho - 1, -1, -1):
+            size = self.tamanho - 1 
+            if(self.matrix[i][0].state != FINAL):
+                possible = self.check_possibilities(i, 0, self.matrix[size ][i].nome )
+                if(len(possible) == 1):
+                    self.matrix[i][0].nome = possible[0]
+                    self.matrix[i][0].state = FINAL
+                    self.p_left.remove([i, 0])
+                    stack.append(self.matrix[i][0])
+                    self.final_pieces += self.check_adj_final(stack)
+                else:
+                    self.matrix[i][0].nome = possible[0]
+                    self.matrix[i][0].state = MAYBE
+
+        return (self, finals)
         
 
     @staticmethod
@@ -282,7 +285,7 @@ class Board:
                 pieces_left.append([row, col])
             board_matrix.append(pieces_row)
         
-        return Board(board_matrix, len(line), pieces_left)
+        return Board(board_matrix, len(line), pieces_left, 0)
         
 
 c = ["BB", "BE", "BD", "VB", "VE", "LV", "FB"]
@@ -332,34 +335,24 @@ class PipeMania(Problem):
     
     def get_piece(self, l, c):
         return self.board.matrix[l][c]
-    
-    def copy_state(self, matrix, p_left, tamanho):
-        new_matrix = []
-        for i in matrix:
-            new_matrix += [i.copy()]
-        new_p_left = []
-        for i in p_left:
-            new_p_left += [i.copy()]
-        new_board = Board(new_matrix, tamanho, new_p_left)
-        new_state = PipeManiaState(new_board)
-        return new_state
 
     def actions(self, state: PipeManiaState):
         """Retorna uma lista de ações que podem ser executadas a
         partir do estado passado como argumento."""
+        board = Board(state.matrix, state.tamanho, state.p_left, state.final_pieces)
         actions = []
-        if (len(state.board.p_left) == 0):
+        if (len(board.p_left) == 0):
             return actions
-        minimum = state.board.p_left[0]
-        for i in state.board.p_left:
+        minimum = board.p_left[0]
+        for i in board.p_left:
             if len(i) < len(minimum):
                 minimum = i
         coord = minimum
         p_x = coord[0]
         p_y = coord[1]
-        piece_name = state.board.matrix[p_x][p_y].nome
-        state.check_possibilities(p_x, p_y, piece_name)
-        for possibility in state.board.matrix[p_x][p_y].possibilities:
+        piece_name = board.matrix[p_x][p_y].nome
+        board.check_possibilities(p_x, p_y, piece_name)
+        for possibility in board.matrix[p_x][p_y].possibilities:
             actions.append([p_x, p_y, possibility])
         return actions
                
@@ -372,15 +365,16 @@ class PipeMania(Problem):
         p_y = action[1]
         p_name = action[2]
         new_state = copy.deepcopy(state)
-        piece = new_state.board.matrix[p_x][p_y]
-        #if(p_name in piece.possibilities):
+        board = Board(new_state.matrix, new_state.tamanho, new_state.p_left, new_state.final_pieces)
+        piece = board.matrix[p_x][p_y]
         piece.possibilities = [p_name]
         piece.nome = p_name
         piece.state = FINAL
-        if ([p_x, p_y] in state.board.p_left):
-            new_state.board.p_left.remove([p_x, p_y])
-        new_state.final_pieces += new_state.check_adj_final([piece])
-        return new_state
+        if ([p_x, p_y] in board.p_left):
+            board.p_left.remove([p_x, p_y])
+        board.final_pieces += board.check_adj_final([piece])
+        altered_state = PipeManiaState(board.matrix, board.p_left, board.tamanho, board.final_pieces)
+        return altered_state
 
 
     def goal_test(self, state: PipeManiaState):
@@ -389,25 +383,26 @@ class PipeMania(Problem):
             estão preenchidas de acordo com as regras do problema.
             !!! 0 = white       1 = gray      2 = black !!!!
             """
-            if (not (state.final_pieces == state.board.tamanho **2)):
+            if (not (state.final_pieces == state.tamanho **2)):
                 return False
+            board = Board(state.matrix, state.tamanho, state.p_left, state.final_pieces)
             pieces = 0
             side = [C, B, E, D]
             current = []
             omlll = [[-1, 0], [1, 0], [0, -1], [0, 1]]
-            stack = [state.board.matrix[0][0]]
+            stack = [board.matrix[0][0]]
             while(len(stack) != 0):
                 cur = stack[-1]
                 if(cur.color == 0):
                     i = 0
                     cur.color = 1
-                    horizontal = state.board.adjacent_horizontal_values(cur.coord[0], cur.coord[1])
-                    pieces1 = state.board.adjacent_vertical_values(cur.coord[0] , cur.coord[1])
+                    horizontal = board.adjacent_horizontal_values(cur.coord[0], cur.coord[1])
+                    pieces1 = board.adjacent_vertical_values(cur.coord[0] , cur.coord[1])
                     pieces1.append(horizontal[0]) #can prob put at same time/nah you end up with nested lists:(, will try it later
                     pieces1.append(horizontal[1])
                     for side_pieces in pieces1:
                         if(side_pieces != ""):  
-                            caca = state.board.matrix[cur.coord[0] + omlll[i][0]][cur.coord[1]+omlll[i][1]] #coords of side piece
+                            caca = board.matrix[cur.coord[0] + omlll[i][0]][cur.coord[1]+omlll[i][1]] #coords of side piece
                             if isvaliddddd(cur, caca.nome, side[i]):
                                 stack.append(caca)
                         i += 1
@@ -419,7 +414,7 @@ class PipeMania(Problem):
                 else:
                     stack.pop()
                     
-            if (pieces == state.board.tamanho ** 2):
+            if (pieces == board.tamanho ** 2):
                 return True
             
             for i in current:
@@ -438,14 +433,15 @@ if __name__ == "__main__":
     # Retirar a solução a partir do nó resultante,
     # Imprimir para o standard output no formato indicado.
     board = Board.parse_instance()
-    initial_state = PipeManiaState(board)
-    initial_state.calcs()
-    problem = PipeMania(initial_state.board)
+    board.calcs()
+    initial_state = PipeManiaState(board.matrix, board.p_left, board.tamanho, board.final_pieces)
+    problem = PipeMania(board)
     problem.initial = initial_state
     #node = depth_first_tree_search(problem)
     #node = breadth_first_tree_search(problem)
     node = astar_search(problem)
-    node.state.board.print_board()
+    final_board = Board(node.state.matrix, node.state.tamanho, node.state.p_left, node.state.final_pieces)
+    final_board.print_board()
     # Mostrar valor na posição (2, 2):
    
    
