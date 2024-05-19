@@ -425,7 +425,8 @@ class PipeMania(Problem):
 
     def h(self, node: Node):#Node is the same as a pipe mania state in its atribute node.state
         """Função heuristica utilizada para a procura A*."""
-        return self.board.h
+        board = Board(node.state.matrix, node.state.tamanho, node.state.p_left, node.state.final_pieces)
+        return board.h
 
 if __name__ == "__main__":
     # Ler o ficheiro do standard input,
