@@ -182,7 +182,7 @@ class Board:
                             caca.state = FINAL
                             self.p_left.remove([caca.coord[0], caca.coord[1]])
                             stack.append(caca)
-                            caca.nome = self.matrix[caca.coord[0]][caca.coord[1]].possibilities[0] 
+                            caca.nome = self.matrix[caca.coord[0]][caca.coord[1]].possibilities[0]
                             self.matrix[caca.coord[0]][caca.coord[1]].nome = caca.nome
                             #print("mudou nome final para: ",self.board.matrix[caca.coord[0]][caca.coord[1]].nome )
                     i += 1
@@ -245,7 +245,7 @@ class Board:
         for i in range(self.tamanho - 1, -1, -1):
             size = self.tamanho - 1 
             if(self.matrix[i][0].state != FINAL):
-                possible = self.check_possibilities(i, 0, self.matrix[size ][i].nome )
+                possible = self.check_possibilities(i, 0, self.matrix[i][0].nome )
                 if(len(possible) == 1):
                     self.matrix[i][0].nome = possible[0]
                     self.matrix[i][0].state = FINAL
@@ -344,9 +344,6 @@ class PipeMania(Problem):
         if (len(board.p_left) == 0):
             return actions
         minimum = board.p_left[0]
-        for i in board.p_left:
-            if len(i) < len(minimum):
-                minimum = i
         coord = minimum
         p_x = coord[0]
         p_y = coord[1]
@@ -438,13 +435,12 @@ if __name__ == "__main__":
     initial_state = PipeManiaState(board.matrix, board.p_left, board.tamanho, board.final_pieces)
     problem = PipeMania(board)
     problem.initial = initial_state
-    #node = depth_first_tree_search(problem)
+    node = depth_first_tree_search(problem)
     #node = breadth_first_tree_search(problem)
-    node = astar_search(problem)
+    #node = astar_search(problem)
     final_board = Board(node.state.matrix, node.state.tamanho, node.state.p_left, node.state.final_pieces)
     final_board.print_board()
-    # Mostrar valor na posição (2, 2):
-   
-   
+
+    # Mostrar valor na posição (2, 2
 
    
